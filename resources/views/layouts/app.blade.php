@@ -15,6 +15,7 @@
 
     <!-- Scripts -->
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+    @livewireStyles
 </head>
 <body>
     <div id="app">
@@ -77,5 +78,6 @@
         </main>
     </div>
     <script src="{{ mix('js/app.js') }}"></script>
+    @livewireScripts
 </body>
 </html>
