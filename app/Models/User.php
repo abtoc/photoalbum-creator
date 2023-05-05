@@ -21,6 +21,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
+        'api_token',
     ];
 
     /**
@@ -30,6 +31,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $hidden = [
         'password',
+        'api_token',
         'remember_token',
     ];
 
@@ -41,4 +43,9 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Relation
+     */
+    public function photos()  { return $this->hasMany(Photo::class); }
 }

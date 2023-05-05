@@ -20,7 +20,7 @@
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
+            <div class="container-fluid">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
@@ -73,11 +73,19 @@
             </div>
         </nav>
 
-        <main class="py-4">
-            @yield('content')
-        </main>
+        <div id="content" class="container-fluid">
+            <div class="row h-100">
+                <nav class="col-md-2 col-lg-1 bg-light">
+                    <ul class="navbar-nav">
+                        <li class="nav-item"><a href="{{ route('photos.index') }}" class="nav-link">{{ __('Photo') }}</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link">{{ __('Album') }}</a></li>
+                    </ul>
+                </nav>
+                <main class="col-md-10 col-lg-11">@yield('content')</main>
+            </div>
+        </div>
     </div>
-    <script src="{{ mix('js/app.js') }}"></script>
     @livewireScripts
+    <script src="{{ mix('js/app.js') }}"></script>
 </body>
 </html>

@@ -6,3 +6,49 @@
 
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
+@import 'bootstrap-icons/font/bootstrap-icons.scss';
+
+// Uppy
+@import '@uppy/core/dist/style.min.css';
+@import '@uppy/dashboard/dist/style.min.css';
+
+// Viewr
+@import 'viewerjs/src/index.scss';
+
+// html, body, #app {
+//    height: 100%;
+//}
+
+//#content {
+//    position: fixed;
+//    top: 55px;
+//    left: 0;
+//    bottom: 0;
+//}
+
+.wrap {
+    h1 {
+        font-size: 28px;
+        font-weight: 400;
+        margin: 0;
+        padding: 9px 0 4px;
+        line-height: 1.3;
+    }
+    .h1-inline {
+        display: inline-block;
+        margin-right: 5px;
+    }
+}
+
+ul#images {
+    list-style: none;
+
+    li {
+        display: inline-block;
+
+        .detail {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+}

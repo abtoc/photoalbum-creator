@@ -19,5 +19,15 @@
         "resolve-url-loader": "^5.0.0",
         "sass": "^1.56.1",
         "sass-loader": "^13.2.2"
+    },
+    "dependencies": {
+        "@uppy/core": "^3.2.0",
+        "@uppy/dashboard": "^3.4.0",
+        "@uppy/google-drive": "^3.1.1",
+        "@uppy/locales": "^3.2.0",
+        "@uppy/xhr-upload": "^3.2.0",
+        "bootstrap-icons": "^1.10.5",
+        "viewer": "^0.10.11",
+        "viewerjs": "^1.11.3"
     }
 }
