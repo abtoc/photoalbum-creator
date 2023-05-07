@@ -48,4 +48,5 @@ class User extends Authenticatable implements MustVerifyEmail
      * Relation
      */
     public function photos()  { return $this->hasMany(Photo::class); }
+    public function albums()  { return $this->hasMany(Album::class); }
 }

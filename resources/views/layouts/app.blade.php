@@ -77,8 +77,8 @@
             <div class="row h-100">
                 <nav class="col-md-2 col-lg-1 bg-light">
                     <ul class="navbar-nav">
-                        <li class="nav-item"><a href="{{ route('photos.index') }}" class="nav-link">{{ __('Photo') }}</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link">{{ __('Album') }}</a></li>
+                        <li class="nav-item"><a href="{{ route('photos.index') }}" class="nav-link">{{ __('Photo Library') }}</a></li>
+                        <li class="nav-item"><a href="{{ route('albums.index') }}" class="nav-link">{{ __('Album') }}</a></li>
                     </ul>
                 </nav>
                 <main class="col-md-10 col-lg-11">@yield('content')</main>
@@ -87,5 +87,6 @@
     </div>
     @livewireScripts
     <script src="{{ mix('js/app.js') }}"></script>
+    @stack('scripts')
 </body>
 </html>

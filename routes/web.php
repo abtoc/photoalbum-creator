@@ -34,4 +34,12 @@ Route::middleware(['verified'])->group(function(){
     Route::get('/photos', [App\Http\Controllers\PhotoController::class, 'index'])->name('photos.index');
     Route::get('/photos/view/{photo}', [App\Http\Controllers\PhotoController::class, 'view'])->name('photos.view');
     Route::get('/photos/download/{photo}', [App\Http\Controllers\PhotoController::class, 'download'])->name('photos.download');
+
+    Route::get('/albums', [App\Http\Controllers\AlbumController::class, 'index'])->name('albums.index');
+    Route::get('/albums/create', [App\Http\Controllers\AlbumController::class, 'create'])->name('albums.create');
+    Route::post('/albums', [App\Http\Controllers\AlbumController::class, 'store'])->name('albums.store');
+    Route::get('/album/{album}/edit', [App\Http\Controllers\AlbumController::class, 'edit'])->name('albums.edit');
+    Route::put('/album/{album}', [App\Http\Controllers\AlbumController::class, 'update'])->name('albums.update');
+    Route::delete('/album/{album}', [App\Http\Controllers\AlbumController::class, 'destroy'])->name('albums.destroy');
+    Route::get('/albums/{album}/cover', [\App\Http\Controllers\AlbumController::class, 'cover'])->name('albums.cover');
 });

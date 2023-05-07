@@ -2,8 +2,6 @@
 
 namespace App\UseCases\Photos;
 
-use App\Models\Photo;
-use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

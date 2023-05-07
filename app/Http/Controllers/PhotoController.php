@@ -38,6 +38,6 @@ class PhotoController extends Controller
     public function download(Request $request, Photo $photo)
     {
         $path = $photo->getPath($request->query('size', ''));
-        return Storage::disk('s3')->download($path, $photo->name.'jpg');
+        return Storage::disk('s3')->download($path, $photo->name.'.jpg');
     }
 }

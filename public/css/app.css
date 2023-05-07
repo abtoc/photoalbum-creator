@@ -18970,6 +18970,21 @@ textarea.form-control-lg {
   }
 }
 
+html, body, #app {
+  height: 100%;
+}
+
+#content {
+  height: calc(100vh - 110px);
+}
+
+main {
+  height: 100%;
+}
+
+.wrap {
+  height: 100%;
+}
 .wrap h1, .wrap .h1 {
   font-size: 28px;
   font-weight: 400;
@@ -18983,6 +18998,8 @@ textarea.form-control-lg {
 }
 
 ul#images {
+  flex: 1;
+  overflow-y: auto;
   list-style: none;
 }
 ul#images li {
