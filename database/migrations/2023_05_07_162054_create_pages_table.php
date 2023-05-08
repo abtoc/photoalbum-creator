@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('album_photos', function (Blueprint $table) {
+        Schema::create('pages', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(App\Models\Album::class);
             $table->foreignIdFor(App\Models\Photo::class);
@@ -47,6 +47,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('album_photos');
+        Schema::dropIfExists('pages');
     }
 };

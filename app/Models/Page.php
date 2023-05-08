@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class AlbumPhoto extends Model
+class Page extends Model
 {
     use HasFactory;
 
@@ -41,7 +41,6 @@ class AlbumPhoto extends Model
      */
      public function album() { return $this->belongsTo(Album::class); }
      public function photo() { return $this->belongsTo(Photo::class); }
-     public function album_photos()  { return $this->hasMany(AlbumPhoto::class); }
 
      /**
      * The "booting" method of the model
@@ -52,24 +51,24 @@ class AlbumPhoto extends Model
     {
         parent::boot();
 
-        self::creating(function($album_photo){
-            $album_photo->page = AlbumPhoto::where('album_id', $album_photo->album_id)->max('page') + 1;
+        self::creating(function($page){
+            $page->page = Page::where('album_id', $page->album_id)->max('page') + 1;
         });
 
-        self::updating(function($album_photo){
-            if($album_photo->isDirty('page')){
-                $from = $album_photo->getOriginal('page');
-                $to   = $album_photo->page;
+        self::updating(function($page){
+            if($page->isDirty('page')){
+                $from = $page->getOriginal('page');
+                $to   = $page->page;
                 if($from < $to){
-                    DB::update('update album_photos set page = page - 1 where album_id = ? and page > ? and page <= ?', [$album_photo->album_id, $from, $to]);
+                    DB::update('update pages set page = page - 1 where album_id = ? and page > ? and page <= ?', [$page->album_id, $from, $to]);
                 } else {
-                    DB::update('update album_photos set page = page + 1 where album_id = ? and page >= ? and page < ?', [$album_photo->album_id, $to, $from]);
+                    DB::update('update pages set page = page + 1 where album_id = ? and page >= ? and page < ?', [$page->album_id, $to, $from]);
                 }
             }
         });
 
-        self::deleted(function($album_photo){
-            DB::update('update album_photos set page = page - 1 where album_id = ? and page > ?', [$album_photo->album_id, $album_photo->page]);
+        self::deleted(function($page){
+            DB::update('update pages set page = page - 1 where album_id = ? and page > ?', [$page->album_id, $page->page]);
         });
     }
 }

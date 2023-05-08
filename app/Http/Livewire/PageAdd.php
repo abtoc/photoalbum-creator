@@ -6,14 +6,14 @@ use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Illuminate\Support\Facades\DB;
 
-class AlbumPhotosAdd extends Component
+class PageAdd extends Component
 {
     public $album;
     
     public function add($id)
     {
         DB::transaction(function() use($id){
-            $this->album->album_photos()->create([
+            $this->album->pages()->create([
                 'album_id' => $this->album->id,
                 'photo_id' => $id,
             ]);
@@ -25,12 +25,12 @@ class AlbumPhotosAdd extends Component
     {
         $query = Auth::user()->photos()
             ->select('photos.*')
-            ->leftJoin('album_photos', function($join){
-                $join->on('photos.id', '=', 'album_photos.photo_id')
-                    -> where('album_photos.album_id', '=', $this->album->id);
+            ->leftJoin('pages', function($join){
+                $join->on('photos.id', '=', 'pages.photo_id')
+                    -> where('pages.album_id', '=', $this->album->id);
             })
-            ->whereNull('album_photos.page')
+            ->whereNull('pages.page')
             ->orderBy('photos.updated_at', 'desc');
-        return view('livewire.album-photos-add', ['photos' => $query->get()]);
+        return view('livewire.page-add', ['photos' => $query->get()]);
     }
 }

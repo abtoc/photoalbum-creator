@@ -42,5 +42,5 @@ class Album extends Model
      * Relation
      */
     public function user() { return $this->belongsTo(User::class); }
-    public function album_photos()  { return $this->hasMany(AlbumPhoto::class); }
+    public function pages()  { return $this->hasMany(Page::class); }
 }

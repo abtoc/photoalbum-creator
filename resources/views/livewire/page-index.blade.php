@@ -1,5 +1,5 @@
 <div class="h-100 d-flex flex-column">
-    @livewire('album-photos-add', ['album' => $album])
+    @livewire('page-add', ['album' => $album])
     <hr>
     <ul id="images">
         @foreach($photos as $photo)
