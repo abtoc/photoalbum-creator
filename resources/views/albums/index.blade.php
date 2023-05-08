@@ -11,6 +11,7 @@
                 <th>{{ __('Title') }}</th>
                 <th>{{ __('Author') }}</th>
                 <th>{{ __('Publisher') }}</th>
+                <th class="text-center">{{ __('Pages') }}</th>
                 <th>{{ __('Updated') }}</th>
                 <th></th>
             </tr>
@@ -22,8 +23,14 @@
                     <td>{{ $album->title }}</td>
                     <td>{{ $album->author }}</td>
                     <td>{{ $album->publisher }}</td>
+                    <td class="text-center">
+                        {{ $album->album_photos()->count() }}
+                    </td>
                     <td>{{ $album->updated_at->toDateTimeString() }}</td>
                     <td class="text-end">
+                        <a href="{{ route('album-photos.index', ['album' => $album]) }}" class="link-dark text-decoration-none">
+                            <i class="bi bi-book"></i>
+                        </a>
                         <a href="{{ route('albums.edit', ['album' => $album]) }}" class="link-dark text-decoration-none">
                             <i class="bi bi-pencil"></i>
                         </a>

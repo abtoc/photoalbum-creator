@@ -57,3 +57,13 @@ ul#images {
         }
     }
 }
+
+ul#modal-images {
+    height: 800px;
+    overflow-y: auto;
+    list-style: none;
+
+    li {
+        display: inline-block;
+    }
+}

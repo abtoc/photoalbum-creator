@@ -42,4 +42,6 @@ Route::middleware(['verified'])->group(function(){
     Route::put('/album/{album}', [App\Http\Controllers\AlbumController::class, 'update'])->name('albums.update');
     Route::delete('/album/{album}', [App\Http\Controllers\AlbumController::class, 'destroy'])->name('albums.destroy');
     Route::get('/albums/{album}/cover', [\App\Http\Controllers\AlbumController::class, 'cover'])->name('albums.cover');
+
+    Route::get('/albums/{album}', [App\Http\Controllers\AlbumPhotoController::class, 'index'])->name('album-photos.index');
 });

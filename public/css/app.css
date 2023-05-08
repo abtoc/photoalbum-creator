@@ -19009,3 +19009,12 @@ ul#images li .detail {
   display: flex;
   justify-content: space-between;
 }
+
+ul#modal-images {
+  height: 800px;
+  overflow-y: auto;
+  list-style: none;
+}
+ul#modal-images li {
+  display: inline-block;
+}

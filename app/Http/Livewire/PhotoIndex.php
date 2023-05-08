@@ -34,6 +34,7 @@ class PhotoIndex extends Component
 
     public function render()
     {
+        $this->dispatchBrowserEvent('reloadViewer');
         return view('livewire.photo-index', [
             'photos' => Auth::user()->photos()->orderBy('created_at', 'desc')->get(),
         ]);
