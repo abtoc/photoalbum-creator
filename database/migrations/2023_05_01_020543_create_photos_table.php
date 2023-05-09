@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('name');
             $table->boolean('favorite')->default(false);
             $table->unsignedBigInteger('capacity')->default(0);
+            $table->unsignedBigInteger('album_count')->default(0);
             $table->date('uploaded_at');
             $table->timestamps();
             $table->softDeletes();
@@ -27,14 +28,38 @@ return new class extends Migration
                 ->on('users')
                 ->references('id')
                 ->cascadeOnDelete();
+            $table->unique([
+                'user_id',
+                'uploaded_at',
+                'name',
+            ]);
             $table->index([
                 'user_id',
                 'uploaded_at',
             ]);
             $table->index([
                 'user_id',
+                'favorite',
+            ]);
+            $table->index([
+                'user_id',
+                'album_count',
+            ]);
+            $table->index([
+                'user_id',
+                'favorite',
                 'uploaded_at',
-                'name',
+            ]);
+            $table->index([
+                'user_id',
+                'favorite',
+                'album_count',
+            ]);
+            $table->index([
+                'user_id',
+                'favorite',
+                'album_count',
+                'uploaded_at',
             ]);
         });
     }

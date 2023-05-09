@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('author');
             $table->string('publisher')->nullable();
+            $table->unsignedBigInteger('photo_count')->default(0);
             $table->timestamps();
             $table->softDeletes();
 
