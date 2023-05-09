@@ -60,7 +60,7 @@
 
                             <div class="col-md-6">
                                 <input type="file" id="cover" name="cover" accept="image/jpeg" class="form-control  @error('cover') is-invalid @enderror" onchange="previewImage(this);">
-                                <img src="{{ route('albums.cover', ['album' => $album]) }}" alt="preview" id="preview" style="max-width:360px;" class="mt-3">
+                                <img src="{{ route('albums.cover', ['album' => $album]) }}" alt="preview" id="preview" style="max-width:200px; max-height:320px" class="mt-3">
                                 @error('cover')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

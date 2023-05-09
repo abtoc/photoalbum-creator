@@ -3340,6 +3340,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _bootstrap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 /* harmony import */ var _upload__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./upload */ "./resources/js/upload.js");
 /* harmony import */ var _viewer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./viewer */ "./resources/js/viewer.js");
+/* harmony import */ var _dragdrop__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./dragdrop */ "./resources/js/dragdrop.js");
+/* harmony import */ var _dragdrop__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_dragdrop__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _toast__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./toast */ "./resources/js/toast.js");
+/* harmony import */ var _toast__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_toast__WEBPACK_IMPORTED_MODULE_4__);
+
+
 
 
 
@@ -3388,6 +3394,88 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     forceTLS: (import.meta.env.VITE_PUSHER_SCHEME ?? 'https') === 'https',
 //     enabledTransports: ['ws', 'wss'],
 // });
+
+/***/ }),
+
+/***/ "./resources/js/dragdrop.js":
+/*!**********************************!*\
+  !*** ./resources/js/dragdrop.js ***!
+  \**********************************/
+/***/ (() => {
+
+function DragDrop(el) {
+  this.target = el;
+  this.update();
+}
+DragDrop.prototype.update = function () {
+  var items = this.target.querySelectorAll('.dragged-item');
+  items.forEach(function (item) {
+    button = item.querySelector('.dragged-button');
+    if (button != null) {
+      button.addEventListener('mousedown', function (event) {
+        item.draggable = true;
+        item.addEventListener('dragstart', function (event) {
+          event.dataTransfer.setData('text/plain', event.target.id);
+          var image = new Image();
+          image.src = item.querySelector('img').src.replace('?size=_m', '?size=_s');
+          event.dataTransfer.setDragImage(image, 90, 144);
+        });
+      });
+    }
+    item.addEventListener('dragover', function (event) {
+      event.preventDefault();
+      event.dataTransfer.dropEffect = 'copy';
+    });
+    item.addEventListener('dragenter', function (event) {
+      event.preventDefault();
+      item.style.background = "#e0e0e0";
+      item.style.opacity = 0.5;
+    });
+    item.addEventListener('dragleave', function (event) {
+      event.preventDefault();
+      item.style.background = "none";
+      item.style.opacity = null;
+    });
+    item.addEventListener('drop', function (event) {
+      event.preventDefault();
+      this.draggable = false;
+      var from = /(.+)-([0-9]+)/.exec(event.dataTransfer.getData('text'));
+      var to = /(.+)-([0-9]+)/.exec(this.id);
+      if (from[1] === to[1]) {
+        Livewire.emit('drop', from[2], to[2]);
+      }
+    });
+  });
+};
+var image = document.getElementById('images');
+if (image != null) {
+  var dragdrop = new DragDrop(image);
+  window.addEventListener('reloadViewer', function () {
+    dragdrop.update();
+  });
+}
+
+/***/ }),
+
+/***/ "./resources/js/toast.js":
+/*!*******************************!*\
+  !*** ./resources/js/toast.js ***!
+  \*******************************/
+/***/ (() => {
+
+window.showToast = function (i, id) {
+  var ri = i.getBoundingClientRect();
+  var toast = document.getElementById(id);
+  var rt = toast.getBoundingClientRect();
+  var top = ri.top - rt.height;
+  var left = ri.right - rt.width;
+  toast.style.left = "".concat(left, "px");
+  toast.style.top = "".concat(top, "px");
+  toast.style.visibility = "visible";
+  setTimeout(function () {
+    toast.style.visibility = "hidden";
+  }, 3000);
+};
 
 /***/ }),
 

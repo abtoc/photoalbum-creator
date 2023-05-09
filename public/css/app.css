@@ -19009,6 +19009,10 @@ ul#images li .detail {
   display: flex;
   justify-content: space-between;
 }
+ul#images li img {
+  width: 200px;
+  height: 320px;
+}
 
 ul#modal-images {
   height: 800px;
@@ -19017,4 +19021,25 @@ ul#modal-images {
 }
 ul#modal-images li {
   display: inline-block;
+}
+ul#modal-images li .detail {
+  display: flex;
+  justify-content: space-between;
+}
+ul#modal-images li img {
+  width: 200px;
+  height: 320px;
+}
+
+.toast-msg {
+  display: flex;
+  visibility: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 3px;
+  background-color: #ffffff;
+  padding: 4px;
+  z-index: 999;
+  position: absolute;
+  top: 0;
+  left: 0;
 }

@@ -9,7 +9,26 @@ use Livewire\Component;
 class PageIndex extends Component
 {
     public $album;
-    protected $listeners = ['refreshComponent' => '$refresh'];
+    protected $listeners = [
+        'refreshComponent' => '$refresh',
+        'drop',
+    ];
+
+    public function drop($from_id, $to_id)
+    {
+        $from = Page::select()
+                ->where('album_id', $this->album->id)
+                ->where('photo_id', $from_id)
+                ->first();
+        $to   = Page::select()
+                ->where('album_id', $this->album->id)
+                ->where('photo_id', $to_id)
+                ->first();
+        DB::transaction(function() use($from, $to){
+            $from->page = $to->page;
+            $from->save();
+        });
+    }
 
     public function destroy($id)
     {

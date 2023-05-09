@@ -31,19 +31,23 @@ class UploadAction
             }
 
             $image = Image::make($request->file);
-            $image_m = clone $image;
             $image = $image->crop(1920,3072,64,0);
+            $image_m = clone $image;
+            $image_s = clone $image;
             $image = $image->resize(1600,2560);
             $image = $image->encode('jpg');
             $image = $image->__toString();
             Storage::disk('s3')->put($photo->getPath(), $image);
             $photo->capacity = Storage::disk('s3')->size($photo->getPath());
-            $photo->save();
-            $image_m = $image_m->crop(1920,3072,64,0);
-            $image_m = $image_m->resize(240, 384);
+            $image_m = $image_m->resize(200, 320);
             $image_m = $image_m->encode('jpg');
             $image_m = $image_m->__toString();
             Storage::disk('s3')->put($photo->getPath('_m'), $image_m);
+            $image_s = $image_s->resize(120, 192);
+            $image_s = $image_s->encode('jpg');
+            $image_s = $image_s->__toString();
+            Storage::disk('s3')->put($photo->getPath('_s'), $image_s);
+            $photo->save();
         });
     }
 }

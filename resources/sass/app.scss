@@ -55,6 +55,11 @@ ul#images {
             display: flex;
             justify-content: space-between;
         }
+
+        img {
+            width: 200px;
+            height: 320px;
+        }
     }
 }
 
@@ -65,5 +70,28 @@ ul#modal-images {
 
     li {
         display: inline-block;
-    }
+
+        .detail {
+            display: flex;
+            justify-content: space-between;
+        }
+
+       img {
+            width: 200px;
+            height: 320px;
+        }
+   }
+}
+
+.toast-msg {
+    display: flex;
+    visibility: hidden;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 3px;
+    background-color: #ffffff;
+    padding: 4px;
+    z-index: 999;
+    position: absolute;
+    top: 0;
+    left: 0;
 }

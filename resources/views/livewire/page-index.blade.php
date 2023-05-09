@@ -9,12 +9,13 @@
                     {{ __('Cover') }}
                 </div>
             </div>
-    </li>
+        </li>
         @foreach($photos as $photo)
-            <li>
+            <li id="id-{{ $photo->id }}" class="dragged-item">
                 <img src="{{ route('photos.view', ['photo' => $photo->id, 'size' => '_m']) }}" alt="{{ $photo->name }}">
                 <div class="detail">
                     <div>
+                        <span class="dragged-button" style="cursor:move"><i class="bi bi-arrows-move"></i></span>
                         Page: {{ $photo->page }},{{ $photo->name }}
                     </div>
                     <div>

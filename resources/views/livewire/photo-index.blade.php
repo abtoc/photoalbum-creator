@@ -36,11 +36,17 @@
                         {{$photo->uploaded_at->toDateString() }}:{{ $photo->name }}
                     </div>
                     <div>
-                        @if($photo->album_count > 0)
-                            <i class="bi bi-book"></i>
-                        @endif
                         <a href="{{ route('photos.download', ['photo' => $photo->id]) }}" class="link-dark text-decoration-none"><i class="bi bi-download"></i></a>
-                        <a href="#" class="link-dark text-decoration none" wire:click="destroy({{ $photo->id }})"><i class="bi bi-trash"></i></a>
+                        @if($photo->album_count > 0)
+                            <i class="bi bi-book" onclick="showToast(this, 'toast-{{ $photo->id }}')"></i>
+                            <div class="toast-msg" id="toast-{{ $photo->id }}">
+                                @foreach($photo->pages as $page)
+                                    <a href="{{ route('pages.index', ['album' => $page->album]) }}">{{ $page->album->title }}</a>
+                                @endforeach
+                            </div>
+                        @else
+                            <a href="#" class="link-dark text-decoration none" wire:click="destroy({{ $photo->id }})"><i class="bi bi-trash"></i></a>
+                        @endif
                     </div>
                 </div>
             </li>
