@@ -24,6 +24,9 @@ class PhotoController extends Controller
     public function view(Request $request, Photo $photo)
     {
         $path = $photo->getPath($request->query('size', ''));
+        if(!Storage::disk('s3')->exists($path)){
+            abort(404);
+        }
         $type = Storage::disk('s3')->mimeType($path);
         $size = Storage::disk('s3')->size($path);
 

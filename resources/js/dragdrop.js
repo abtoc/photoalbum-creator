@@ -21,7 +21,7 @@ DragDrop.prototype.update = function()
         }
         item.addEventListener('dragover', (event) => {
             event.preventDefault();
-            event.dataTransfer.dropEffect = 'copy';
+            event.dataTransfer.dropEffect = 'move';
         });
         item.addEventListener('dragenter', (event) => {
             event.preventDefault();

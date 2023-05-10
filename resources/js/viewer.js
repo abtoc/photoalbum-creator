@@ -1,7 +1,6 @@
 import Viewer from "viewerjs";
 
 function reloadViewer(image){
-    console.log('reloadViewer');
     const viewer = new Viewer(image, {
         rotatable: false,
 

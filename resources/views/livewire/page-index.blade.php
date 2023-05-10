@@ -1,4 +1,4 @@
-<div class="h-100 d-flex flex-column">
+<div class="h-100 d-flex flex-column pt-2">
     @livewire('page-add', ['album' => $album])
     <hr>
     <ul id="images">

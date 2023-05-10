@@ -18970,21 +18970,34 @@ textarea.form-control-lg {
   }
 }
 
-html, body, #app {
-  height: 100%;
+html, body {
+  height: 100vh;
+}
+
+#app {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 #content {
-  height: calc(100vh - 110px);
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  height: 100%;
+}
+
+#sidebar {
+  min-width: 120px;
 }
 
 main {
-  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  height: calc(100vh - 108px);
 }
 
-.wrap {
-  height: 100%;
-}
 .wrap h1, .wrap .h1 {
   font-size: 28px;
   font-weight: 400;

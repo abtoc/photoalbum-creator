@@ -3424,7 +3424,7 @@ DragDrop.prototype.update = function () {
     }
     item.addEventListener('dragover', function (event) {
       event.preventDefault();
-      event.dataTransfer.dropEffect = 'copy';
+      event.dataTransfer.dropEffect = 'move';
     });
     item.addEventListener('dragenter', function (event) {
       event.preventDefault();
@@ -3547,7 +3547,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var viewerjs__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(viewerjs__WEBPACK_IMPORTED_MODULE_0__);
 
 function reloadViewer(image) {
-  console.log('reloadViewer');
   var viewer = new (viewerjs__WEBPACK_IMPORTED_MODULE_0___default())(image, {
     rotatable: false,
     url: function url(image) {

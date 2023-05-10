@@ -19,7 +19,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav id="header" class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container-fluid">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -74,15 +74,14 @@
         </nav>
 
         <div id="content" class="container-fluid">
-            <div class="row h-100">
-                <nav class="col-md-2 col-lg-1 bg-light">
-                    <ul class="navbar-nav">
-                        <li class="nav-item"><a href="{{ route('photos.index') }}" class="nav-link">{{ __('Photo Library') }}</a></li>
-                        <li class="nav-item"><a href="{{ route('albums.index') }}" class="nav-link">{{ __('Album') }}</a></li>
-                    </ul>
-                </nav>
-                <main class="col-md-10 col-lg-11">@yield('content')</main>
-            </div>
+            <nav id="sidebar" class="bg-light">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a href="{{ route('home') }}" class="nav-link">{{ __('Dashboard') }}</a></li>
+                    <li class="nav-item"><a href="{{ route('photos.index') }}" class="nav-link">{{ __('Photo Library') }}</a></li>
+                    <li class="nav-item"><a href="{{ route('albums.index') }}" class="nav-link">{{ __('Album') }}</a></li>
+                </ul>
+            </nav>
+            <main>@yield('content')</main>
         </div>
     </div>
     @livewireScripts
