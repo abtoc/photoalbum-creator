@@ -19028,7 +19028,7 @@ ul#images li img {
 }
 
 ul#modal-images {
-  height: 800px;
+  height: 780px;
   overflow-y: auto;
   list-style: none;
 }
@@ -19055,4 +19055,20 @@ ul#modal-images li img {
   position: absolute;
   top: 0;
   left: 0;
+}
+
+table.fixed {
+  table-layout: fixed;
+}
+table.fixed .column-pages {
+  width: 100px;
+}
+table.fixed .column-id {
+  width: 80px;
+}
+table.fixed .column-uploaded {
+  width: 180px;
+}
+table.fixed .column-command {
+  width: 90px;
 }

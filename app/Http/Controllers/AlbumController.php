@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\MakeAlbumJob;
 use App\Models\Album;
 use App\UseCases\Albums\DestroyAction;
 use App\UseCases\Albums\StoreAction;
@@ -19,7 +20,9 @@ class AlbumController extends Controller
 
     public function index()
     {
-        $albums = Auth::user()->albums()->orderBy('updated_at', 'desc')->get();
+        $albums = Auth::user()->albums()
+            ->sortable(['updated_at' => 'desc'])
+            ->paginate(20);
         return view('albums.index', ['albums' => $albums]);
     }
 
@@ -37,7 +40,7 @@ class AlbumController extends Controller
             'cover' => ['required', 'file', 'mimetypes:image/jpeg', 'max:1024'],
         ]);
         $action($request);
-        return to_route('albums.index');
+        return to_route_query('albums.index');
     }
 
     public function edit(Album $album)
@@ -54,17 +57,18 @@ class AlbumController extends Controller
             'cover' => ['nullable', 'file', 'mimetypes:image/jpeg', 'max:1024'],
         ]);
         $action($request, $album);
-        return to_route('albums.index');
+        return to_route_query('albums.index');
     }
 
     public function destroy(Album $album, DestroyAction $action)
     {
         $action($album);
-        return to_route('albums.index');
+        return to_route_query('albums.index');
     }
 
-    public function cover(Album $album)
+    public function cover(Request $request, Album $album)
     {
+        $this->authorize('view', $album);
         $path = sprintf('/%s/albums/%08d/cover.jpg', Auth::user()->email, $album->id);
         $type = Storage::disk('s3')->mimeType($path);
         $size = Storage::disk('s3')->size($path);
@@ -75,6 +79,20 @@ class AlbumController extends Controller
             'Content-type' => $type,
             'Content-length' => $size,
         ]);
+    }
+
+    public function make(Album $album)
+    {
+        $this->authorize('update', $album);
+        Storage::disk('s3')->delete($album->getPath());
+        MakeAlbumJob::dispatch($album);
+        return to_route_query('albums.index');
+    }
+
+    public function download(Album $album)
+    {
+        $this->authorize('view', $album);
+        return Storage::disk('s3')->download($album->getPath(), sprintf('%08d', $album->id).'.epub');
     }
 }
 

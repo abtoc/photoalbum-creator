@@ -54,7 +54,7 @@ class PhotoIndex extends Component
             ->orderBy('created_at', 'desc');
         $photos = $query->get();
         $count = $query->count();
-        $favorites = Auth::user()->photos()->where('favorite', true)->count();
+        $favorites = $query->where('favorite', true)->count();
 
         $uploaded = Auth::user()->photos()->select('uploaded_at')
             ->groupBy('uploaded_at')

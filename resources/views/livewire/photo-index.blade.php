@@ -40,9 +40,13 @@
                         @if($photo->album_count > 0)
                             <i class="bi bi-book" onclick="showToast(this, 'toast-{{ $photo->id }}')"></i>
                             <div class="toast-msg" id="toast-{{ $photo->id }}">
-                                @foreach($photo->pages as $page)
-                                    <a href="{{ route('pages.index', ['album' => $page->album]) }}">{{ $page->album->title }}</a>
-                                @endforeach
+                                <ul class="list-group">
+                                    @foreach($photo->pages as $page)
+                                        <li class="list-group-item">
+                                            <a href="{{ route('pages.index', ['album' => $page->album]) }}">{{ $page->album->title }}</a>
+                                        </li>
+                                    @endforeach
+                                </ul>
                             </div>
                         @else
                             <a href="#" class="link-dark text-decoration none" wire:click="destroy({{ $photo->id }})"><i class="bi bi-trash"></i></a>

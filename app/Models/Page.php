@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class Page extends Model
 {
@@ -54,6 +55,7 @@ class Page extends Model
 
         self::creating(function($page){
             $page->page = Page::where('album_id', $page->album_id)->max('page') + 1;
+            $page->page_id = Str::random(32);
         });
 
         self::created(function($page){
@@ -75,7 +77,7 @@ class Page extends Model
                 } else {
                     DB::update('update pages set page = page + 1 where album_id = ? and page >= ? and page < ?', [$page->album_id, $to, $from]);
                 }
-                DB::update('update albums set updated_at = ?', [Carbon::now()]);
+                DB::update('update albums set updated_at = ? where id = ?', [Carbon::now(), $page->album_id]);
             }
         });
 

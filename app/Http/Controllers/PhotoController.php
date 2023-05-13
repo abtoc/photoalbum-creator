@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Storage;
 
 class PhotoController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Photo::class, 'photo');
+    }
+
     public function index()
     {
         return view('photos.index');
@@ -17,21 +22,22 @@ class PhotoController extends Controller
     public function upload(Request $request, UploadAction $action){
         $action($request);
         return response()->json([
-            'url' => ''
         ], 201);
     }
 
     public function view(Request $request, Photo $photo)
     {
+        $this->authorize('view', $photo);
         $path = $photo->getPath($request->query('size', ''));
-        if(!Storage::disk('s3')->exists($path)){
+        if(Storage::disk('s3')->missing($path)){
             abort(404);
         }
         $type = Storage::disk('s3')->mimeType($path);
         $size = Storage::disk('s3')->size($path);
+        $stream = Storage::disk('s3')->readStream($path);
 
-        return response()->stream(function() use($path){
-            echo Storage::disk('s3')->get($path);
+        return response()->stream(function() use($stream){
+            fpassthru($stream);
         }, 200, [
             'Content-type' => $type,
             'Content-length' => $size,

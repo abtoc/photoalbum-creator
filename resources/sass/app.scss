@@ -78,7 +78,7 @@ ul#images {
 }
 
 ul#modal-images {
-    height: 800px;
+    height: 780px;
     overflow-y: auto;
     list-style: none;
 
@@ -108,4 +108,21 @@ ul#modal-images {
     position: absolute;
     top: 0;
     left: 0;
+}
+
+table.fixed {
+    table-layout: fixed;
+    
+    .column-pages {
+        width: 100px;
+    }
+    .column-id {
+        width: 80px;
+    }
+    .column-uploaded {
+        width: 180px;
+    }
+    .column-command {
+        width: 90px;
+    }
 }

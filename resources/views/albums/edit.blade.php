@@ -5,10 +5,10 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Update') }}</div>
+                <div class="card-header"><a href="{{ route_query('albums.index') }}">{{ __('Album') }}</a> / {{ __('Update') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('albums.update', ['album' => $album->id]) }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route_query('albums.update', ['album' => $album->id]) }}" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
 

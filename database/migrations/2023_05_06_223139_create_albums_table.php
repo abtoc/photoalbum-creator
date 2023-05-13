@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('author');
             $table->string('publisher')->nullable();
+            $table->uuid('uuid');
             $table->unsignedBigInteger('photo_count')->default(0);
             $table->timestamps();
             $table->softDeletes();
@@ -27,6 +28,14 @@ return new class extends Migration
                 ->on('users')
                 ->references('id')
                 ->cascadeOnDelete();
+            $table->index([
+                'user_id',
+                'title',
+            ]);
+            $table->index([
+                'user_id',
+                'updated_at',
+            ]);
         });
     }
 

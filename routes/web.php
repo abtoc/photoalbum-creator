@@ -42,6 +42,8 @@ Route::middleware(['verified'])->group(function(){
     Route::put('/album/{album}', [App\Http\Controllers\AlbumController::class, 'update'])->name('albums.update');
     Route::delete('/album/{album}', [App\Http\Controllers\AlbumController::class, 'destroy'])->name('albums.destroy');
     Route::get('/albums/{album}/cover', [\App\Http\Controllers\AlbumController::class, 'cover'])->name('albums.cover');
+    Route::post('/albums/{album}/make', [App\Http\Controllers\AlbumController::class, 'make'])->name('albums.make');
+    Route::get('/albums/{album}/download', [App\Http\Controllers\AlbumController::class, 'download'])->name('albums.download');
 
     Route::get('/albums/{album}', [App\Http\Controllers\PageController::class, 'index'])->name('pages.index');
 });

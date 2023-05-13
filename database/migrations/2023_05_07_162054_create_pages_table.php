@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignIdFor(App\Models\Album::class);
             $table->foreignIdFor(App\Models\Photo::class);
             $table->unsignedBigInteger('page');
+            $table->string('page_id', 32);
             $table->timestamps();
 
             $table->foreign('album_id')
@@ -34,7 +35,6 @@ return new class extends Migration
             ]);
             $table->index([
                 'album_id',
-                'photo_id',
                 'page',
             ]);
         });
