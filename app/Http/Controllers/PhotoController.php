@@ -6,6 +6,7 @@ use App\Models\Photo;
 use App\UseCases\Photos\UploadAction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 
 class PhotoController extends Controller
 {
@@ -34,6 +35,7 @@ class PhotoController extends Controller
         }
         $type = Storage::disk('s3')->mimeType($path);
         $size = Storage::disk('s3')->size($path);
+        $modified = $photo->updated_at->toRfc7231String();
         $stream = Storage::disk('s3')->readStream($path);
 
         return response()->stream(function() use($stream){
@@ -41,6 +43,7 @@ class PhotoController extends Controller
         }, 200, [
             'Content-type' => $type,
             'Content-length' => $size,
+            'Last-Modified' => $modified,
         ]);
     }
 

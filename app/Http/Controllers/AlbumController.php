@@ -72,12 +72,15 @@ class AlbumController extends Controller
         $path = sprintf('/%s/albums/%08d/cover.jpg', Auth::user()->email, $album->id);
         $type = Storage::disk('s3')->mimeType($path);
         $size = Storage::disk('s3')->size($path);
+        $modified = $album->updated_at->toRfc7231String();
+        $stream = Storage::disk('s3')->readStream($path);
 
-        return response()->stream(function() use($path){
-            echo Storage::disk('s3')->get($path);
+        return response()->stream(function() use($stream){
+            fpassthru($stream);
         }, 200, [
             'Content-type' => $type,
             'Content-length' => $size,
+            'Last-Modified' => $modified,
         ]);
     }
 
