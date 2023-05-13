@@ -3506,7 +3506,7 @@ if (document.getElementById("uppy-select-files") != null) {
       restrictions: {
         maxFileSize: 20000000,
         //20MB
-        maxNumberOfFiles: 20
+        maxNumberOfFiles: 100
         //                    allowedFileTypes: ['image/*'],
       }
     }).use(_uppy_dashboard__WEBPACK_IMPORTED_MODULE_2__["default"], {
@@ -3515,9 +3515,9 @@ if (document.getElementById("uppy-select-files") != null) {
       locale: _uppy_locales_lib_ja_JP__WEBPACK_IMPORTED_MODULE_4__["default"]
     }).use(_uppy_google_drive__WEBPACK_IMPORTED_MODULE_3__["default"], {
       target: _uppy_dashboard__WEBPACK_IMPORTED_MODULE_2__["default"],
-      companionUrl: 'http://localhost:3020/'
+      companionUrl: response.data.companion_url
     }).use(_uppy_xhr_upload__WEBPACK_IMPORTED_MODULE_1__["default"], {
-      endpoint: 'http://localhost/api/photos/upload?api_token=' + response.data.api_token,
+      endpoint: response.data.endpoint,
       headers: {
         //'X-CSRF-TOKEN': document.querySelector('[name=csrf-token]').content,
         'Authorization': 'Bearer ' + response.data.api_token

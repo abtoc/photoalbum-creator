@@ -12,8 +12,8 @@ if(document.getElementById("uppy-select-files") != null){
                 debug: true,
                 restrictions: {
                     maxFileSize: 20000000, //20MB
-                    maxNumberOfFiles: 20,
-//                    allowedFileTypes: ['image/*'],
+                    maxNumberOfFiles: 100,
+                    allowedFileTypes: ['image/*'],
                 },
             })
             .use(Dashboard, {
@@ -23,10 +23,10 @@ if(document.getElementById("uppy-select-files") != null){
             })
             .use(GoogleDrive, {
                 target: Dashboard,
-                companionUrl: 'http://localhost:3020/',
+                companionUrl: response.data.companion_url,
             })
             .use(XHRUpload, {
-                endpoint: 'http://localhost/api/photos/upload?api_token=' + response.data.api_token,
+                endpoint: response.data.endpoint,
                 headers: {
                     //'X-CSRF-TOKEN': document.querySelector('[name=csrf-token]').content,
                     'Authorization': 'Bearer ' + response.data.api_token,

@@ -22,7 +22,11 @@ Auth::routes(['verify' => true]);
 
 Route::get('/api-token', function(){
     if(Auth::check()){
-        return response()->json(['api_token' => Auth::user()->api_token]);
+        return response()->json([
+            'api_token' => Auth::user()->api_token,
+            'endpoint' => route('photos.upload', ['api_token' => Auth::user()->api_token]),
+            'companion_url' => config('app.companion_url'),
+        ]);
     } else {
         return response()->json(['api_token' => ''], 403);
     }

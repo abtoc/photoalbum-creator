@@ -77,8 +77,15 @@ ul#images {
     }
 }
 
+#album-photos-add {
+    .modal-dialog {
+        --bs-modal-width: calc(100vw - 80px)
+    }
+}
+
 ul#modal-images {
-    height: 780px;
+//    height: 760px;
+    height: calc(100vh - 200px);
     overflow-y: auto;
     list-style: none;
 
