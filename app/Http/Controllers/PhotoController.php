@@ -30,6 +30,7 @@ class PhotoController extends Controller
     {
         $photo = Photo::withTrashed()->findOrFail($photo);
         $this->authorize('view', $photo);
+
         $path = $photo->getPath($request->query('size', ''));
         if(Storage::disk('s3')->missing($path)){
             abort(404);
@@ -37,6 +38,17 @@ class PhotoController extends Controller
         $type = Storage::disk('s3')->mimeType($path);
         $size = Storage::disk('s3')->size($path);
         $modified = $photo->updated_at->toRfc7231String();
+        $expires = $photo->updated_at->addDays(7)->toRfc7231String();
+
+        $since = $request->header('If-Modified-Since');
+        if($since){
+            $since = new Carbon($since);
+            if($since->gte($photo->updated_at)){
+                return response('', 304)
+                    ->header('Content-Type', $type);
+            }
+        }
+
         $stream = Storage::disk('s3')->readStream($path);
 
         return response()->stream(function() use($stream){
@@ -45,6 +57,7 @@ class PhotoController extends Controller
             'Content-type' => $type,
             'Content-length' => $size,
             'Last-Modified' => $modified,
+            'Expires' => $expires,
             'Cache-Control' => 'public',
         ]);
     }

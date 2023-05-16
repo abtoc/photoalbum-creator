@@ -26,7 +26,6 @@
         </div>
         <div>
             {{ __('Selected') }}:{{ $count }},{{ __('Favorites' )}}:{{ $favorites }}
-
         </div>
     </div>
     <hr>

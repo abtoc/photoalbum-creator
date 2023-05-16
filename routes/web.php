@@ -40,7 +40,7 @@ Route::middleware(['verified'])->group(function(){
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
     Route::get('/photos', [App\Http\Controllers\PhotoController::class, 'index'])->name('photos.index');
-    Route::get('/photos/{photo}/view', [App\Http\Controllers\PhotoController::class, 'view'])->name('photos.view');
+    Route::get('/photos/view/{photo}', [App\Http\Controllers\PhotoController::class, 'view'])->name('photos.view');
     Route::get('/photos/download/{photo}', [App\Http\Controllers\PhotoController::class, 'download'])->name('photos.download');
 
     Route::get('/albums', [App\Http\Controllers\AlbumController::class, 'index'])->name('albums.index');

@@ -10,6 +10,7 @@ use App\UseCases\Albums\DestroyAction;
 use App\UseCases\Albums\RestoreAction;
 use App\UseCases\Albums\StoreAction;
 use App\UseCases\Albums\UpdateAction;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -102,7 +103,17 @@ class AlbumController extends Controller
         $type = Storage::disk('s3')->mimeType($path);
         $size = Storage::disk('s3')->size($path);
         $modified = $album->updated_at->toRfc7231String();
+        $expires = $album->updated_at->addDays(7)->toRfc7231String();
         $stream = Storage::disk('s3')->readStream($path);
+        $since = $request->header('If-Modified-Since');
+
+        if($since){
+            $since = new Carbon($since);
+            if($since->gte($album->updated_at)){
+                return response('', 304)
+                    ->header('Content-Type', $type);
+            }
+        }
 
         return response()->stream(function() use($stream){
             fpassthru($stream);
@@ -110,6 +121,8 @@ class AlbumController extends Controller
             'Content-type' => $type,
             'Content-length' => $size,
             'Last-Modified' => $modified,
+            'Expires' => $expires,
+            'Cache-Control' => 'public',
         ]);
     }
 
