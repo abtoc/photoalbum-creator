@@ -10,6 +10,14 @@
                     <div>
                         <div class="row g-1 align-items-center">
                             <div class="col-auto">
+                                <select class="form-select form-select-sm" wire:model="uploaded_at">
+                                    <option value="">({{ __('Uploaded') }})</option>
+                                    @foreach($uploaded as $up)
+                                        <option value="{{ $up->uploaded_at->toDateString() }}">{{ $up->uploaded_at->toDateString() }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-auto">
                                 <input type="checkbox" class="form-check-input" id="favorite" wire:model="favorite">
                                 <label class="form-check-label" for="favorite">{{ __('Favorite') }}</label>
                             </div>
@@ -17,18 +25,10 @@
                                 <input type="checkbox" class="form-check-input" id="not_albumed" wire:model="not_albumed">
                                 <label class="form-check-label" for="not_albumed">{{ __('Not Albumed') }}</label>
                             </div>
-                            <div class="col-auto">
-                                <select class="form-select form-select-sm" wire:model="uploaded_at">
-                                    <option value="">({{ __('None') }})</option>
-                                    @foreach($uploaded as $up)
-                                        <option value="{{ $up->uploaded_at->toDateString() }}">{{ $up->uploaded_at->toDateString() }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
                         </div>
                     </div>
                     <div>
-                        {{ __('Selected') }}:{{ $count }},{{ __('Favorites' )}}:{{ $favorites }},{{ __('Page') }}:{{ $album->pages()->count() }}
+                        {{ __('Selected') }}:{{ $count }},{{ __('Favorites' )}}:{{ $favorites }},{{ __('Pages') }}:{{ $album->pages()->count() }}
                     </div>
                 </div>
                 <ul id="modal-images">

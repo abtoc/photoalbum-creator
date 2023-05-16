@@ -4,7 +4,7 @@
             <div class="row g-1 align-items-center">
                 <div class="col-auto">
                     <select class="form-select form-select-sm" wire:model="uploaded_at">
-                        <option value="">({{ __('None') }})</option>
+                        <option value="">({{ __('Uploaded') }})</option>
                         @foreach($uploaded as $up)
                             <option value="{{ $up->uploaded_at->toDateString() }}">{{ $up->uploaded_at->toDateString() }}</option>
                         @endforeach

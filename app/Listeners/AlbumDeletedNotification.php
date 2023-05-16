@@ -27,8 +27,10 @@ class AlbumDeletedNotification
     public function handle($event)
     {
         if($event->album->isForceDeleting()){
-            $path = sprintf('%s/albums/%08d', $event->album->user->email, $event->album->id);
+            $path = $event->album->getDirectory();
             Storage::disk('s3')->deleteDirectory($path);
+            $path = $event->album->getEpubPath();
+            Storage::disk('s3')->delete($path);
         }
     }
 }

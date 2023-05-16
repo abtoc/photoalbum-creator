@@ -3525,7 +3525,18 @@ if (document.getElementById("uppy-select-files") != null) {
       timeout: response.data.timeout
     });
     uppy.on('complete', function (result) {
+      console.log('complete');
       Livewire.emit('refreshComponent');
+    });
+    uppy.on('dashboard:modal-closed', function () {
+      console.log('modal-closed');
+    });
+    uppy.on('upload-error', function (file, error, response) {
+      console.log('upload-error');
+      console.log(response);
+    });
+    uppy.on('error', function (error) {
+      console.log('error');
     });
   })["catch"](function (error) {
     console.log(error);

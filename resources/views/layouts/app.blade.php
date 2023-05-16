@@ -76,7 +76,7 @@
         <div id="content" class="container-fluid">
             <nav id="sidebar" class="bg-light">
                 <ul class="navbar-nav">
-                    <li class="nav-item"><a href="{{ route('home') }}" class="nav-link">{{ __('Dashboard') }}</a></li>
+                    <li class="nav-item"><a href="{{ route('home') }}" class="nav-link">{{ __('Home') }}</a></li>
                     <li class="nav-item"><a href="{{ route('photos.index') }}" class="nav-link">{{ __('Photo Library') }}</a></li>
                     <li class="nav-item"><a href="{{ route('albums.index') }}" class="nav-link">{{ __('Album') }}</a></li>
                 </ul>

@@ -35,8 +35,19 @@ if(document.getElementById("uppy-select-files") != null){
                 timeout: response.data.timeout,
             });
         uppy.on('complete', (result) => {
-                Livewire.emit('refreshComponent')
-            })
+            console.log('complete');
+            Livewire.emit('refreshComponent')
+        });
+        uppy.on('dashboard:modal-closed', () => {
+            console.log('modal-closed');
+        });
+        uppy.on('upload-error', (file, error, response) => {
+            console.log('upload-error');
+            console.log(response);
+        });
+        uppy.on('error', (error) => {
+            console.log('error');
+        });
     })
     .catch(function(error){
         console.log(error)
