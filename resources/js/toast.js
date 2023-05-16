@@ -12,5 +12,5 @@ window.showToast = function(i, id){
 
     setTimeout(() => {
         toast.style.visibility = "hidden";
-    }, 3000);
+    }, 5000);
 }

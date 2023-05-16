@@ -60,8 +60,6 @@ return [
 
     'version' => env('APP_VERSION'),
 
-    'companion_url' => env('COMPANION_URL'),
-
     /*
     |--------------------------------------------------------------------------
     | Application Timezone

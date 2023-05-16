@@ -28,7 +28,7 @@
                         </div>
                     </div>
                     <div>
-                        {{ __('Selected') }}:{{ $count }},{{ __('Favorites' )}}:{{ $favorites }}
+                        {{ __('Selected') }}:{{ $count }},{{ __('Favorites' )}}:{{ $favorites }},{{ __('Page') }}:{{ $album->pages()->count() }}
                     </div>
                 </div>
                 <ul id="modal-images">

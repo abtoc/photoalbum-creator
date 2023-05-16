@@ -10,9 +10,10 @@ use Livewire\Component;
 class PhotoIndex extends Component
 {
     public $favorite = false;
+    public $uploaded_at = "";
     public $published = false;
     public $not_albumed = false;
-    public $uploaded_at = "";
+    public $trashed = false;
 
     protected $listeners = ['refreshComponent' => '$refresh'];
 
@@ -30,9 +31,29 @@ class PhotoIndex extends Component
     public function destroy($id)
     {
         $photo = AUth::user()->photos()->where('id', $id)->first();
-        if($photo != null){
+        if($photo != null && $photo->album_count == 0){
             DB::transaction(function() use($photo){
                 $photo->delete();
+            });
+        }
+    }
+
+    public function forceDestroy($id)
+    {
+        $photo = AUth::user()->photos()->onlyTrashed()->where('id', $id)->first();
+        if($photo != null && $photo->album_count == 0){
+            DB::transaction(function() use($photo){
+                $photo->forceDelete();
+            });
+        }
+    }
+
+    public function restore($id)
+    {
+        $photo = AUth::user()->photos()->onlyTrashed()->where('id', $id)->first();
+        if($photo != null){
+            DB::transaction(function() use($photo){
+                $photo->restore();
             });
         }
     }
@@ -42,6 +63,9 @@ class PhotoIndex extends Component
         $this->dispatchBrowserEvent('reloadViewer');
 
         $query = Auth::user()->photos()->select()
+            ->when($this->trashed, function($q){
+                return $q->onlyTrashed();
+            })
             ->when($this->favorite, function($q){
                 return $q->where('favorite', true);
             })
@@ -57,6 +81,9 @@ class PhotoIndex extends Component
         $favorites = $query->where('favorite', true)->count();
 
         $uploaded = Auth::user()->photos()->select('uploaded_at')
+            ->when($this->trashed, function($q){
+                return $q->onlyTrashed();
+            })
             ->groupBy('uploaded_at')
             ->orderBy('uploaded_at', 'desc')->get();
 

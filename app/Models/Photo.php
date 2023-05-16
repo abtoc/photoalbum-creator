@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
+use App\Events\PhotoDeleted;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -42,6 +42,15 @@ class Photo extends Model
     ];
 
     /**
+     * The event map for the model.
+     *
+     * @var array
+     */
+    protected $dispatchesEvents = [
+        'deleted' => PhotoDeleted::class,
+    ];
+
+    /**
      * Relation
      */
     public function user() { return $this->belongsTo(User::class); }
@@ -50,13 +59,21 @@ class Photo extends Model
     /**
      * Get file path
      */
-    public function getPath(string $size=''): string
+    public function getDirectory(): string
     {
-        return sprintf('/%s/photos/%04d/%02d/%02d/%s%s.jpg',
+        return sprintf('users/%s/photos/%04d/%02d/%02d',
             $this->user->email,
             $this->uploaded_at->year,
             $this->uploaded_at->month,
             $this->uploaded_at->day,
-            $this->name, $size);
+        );
+    }
+
+     public function getPath(string $size=''): string
+    {
+        return sprintf('%s/%s%s.jpg',
+            $this->getDirectory(),
+            $this->name, $size
+        );
     }
 }

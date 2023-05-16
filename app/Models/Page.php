@@ -85,12 +85,16 @@ class Page extends Model
             DB::update('update pages set page = page - 1 where album_id = ? and page > ?', [$page->album_id, $page->page]);
 
             $album = Album::find($page->album_id);
-            $album->photo_count = Page::where('album_id', $page->album_id)->count();
-            $album->save();
+            if(!is_null($album)){
+                $album->photo_count = Page::where('album_id', $page->album_id)->count();
+                $album->save();
+            }
 
             $photo = Photo::find($page->photo_id);
-            $photo->album_count = Page::where('photo_Id', $page->photo_id)->count();
-            $photo->save();
+            if(!is_null($photo)){
+                $photo->album_count = Page::where('photo_Id', $page->photo_id)->count();
+                $photo->save();
+            }
         });
     }
 }

@@ -3474,7 +3474,7 @@ window.showToast = function (i, id) {
   toast.style.visibility = "visible";
   setTimeout(function () {
     toast.style.visibility = "hidden";
-  }, 3000);
+  }, 5000);
 };
 
 /***/ }),
@@ -3504,10 +3504,9 @@ if (document.getElementById("uppy-select-files") != null) {
     var uppy = new _uppy_core__WEBPACK_IMPORTED_MODULE_0__["default"]({
       debug: true,
       restrictions: {
-        maxFileSize: 20000000,
-        //20MB
-        maxNumberOfFiles: 100
-        //                    allowedFileTypes: ['image/*'],
+        maxFileSize: response.data.max_file_size,
+        maxNumberOfFiles: response.data.count,
+        allowedFileTypes: ['image/*']
       }
     }).use(_uppy_dashboard__WEBPACK_IMPORTED_MODULE_2__["default"], {
       target: '#uppy-drop-area',
@@ -3521,7 +3520,9 @@ if (document.getElementById("uppy-select-files") != null) {
       headers: {
         //'X-CSRF-TOKEN': document.querySelector('[name=csrf-token]').content,
         'Authorization': 'Bearer ' + response.data.api_token
-      }
+      },
+      limit: response.data.limit,
+      timeout: response.data.timeout
     });
     uppy.on('complete', function (result) {
       Livewire.emit('refreshComponent');

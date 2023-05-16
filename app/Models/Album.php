@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use App\Enums\Album\Status;
+use App\Events\AlbumDeleted;
 use Kyslik\ColumnSortable\Sortable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class Album extends Model
@@ -19,6 +21,7 @@ class Album extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'status',
         'title',
         'author',
         'publisher',
@@ -39,6 +42,7 @@ class Album extends Model
      * @var array<string, string>
      */
     protected $casts = [
+        'status' => Status::class,
     ];
 
     /**
@@ -60,15 +64,31 @@ class Album extends Model
     /**
      * Get file path
      */
-    public function getPath(): string
+    public function getDirectory(): string
     {
-        return sprintf('%s/albums/%08d/%08d.epub', 
-            Auth::user()->email,
-            $this->id,
-            $this->id,
-        );
+        return sprintf('users/%s/albums/%08d', $this->user->email, $this->id);
     }
-     /**
+
+     public function getEpubPath(): string
+    {
+        return $this->getDirectory().'.epub';
+    }
+
+    public function getCoverPath(): string
+    {
+        return $this->getDirectory().'/cover.jpg';
+    }
+
+    /**
+     * The event map for the model.
+     *
+     * @var array
+     */
+    protected $dispatchesEvents = [
+        'deleted' => AlbumDeleted::class,
+    ];
+
+    /**
      * The "booting" method of the model
      * 
      * @return void
@@ -79,6 +99,25 @@ class Album extends Model
 
         self::creating(function($album){
             $album->uuid = Str::uuid();
+        });
+
+        self::deleting(function($album){
+            if($album->isForceDeleting()){
+                foreach($album->pages()->cursor() as $page){
+                    $page->delete();
+                }
+            } else {
+                $album->status = Status::TRASHED;
+                $album->save();
+            }
+        });
+
+        self::restoring(function($album){
+            if(Storage::disk('s3')->exists($album->getEpubPath())){
+                $album->status = Status::PUBLISHED;
+            } else {
+                $album->status = Status::NONE;
+            }
         });
     }
 }

@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('albums', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(App\Models\User::class);
+            $table->unsignedSmallInteger('status')->default(0);
             $table->string('title');
             $table->string('author');
             $table->string('publisher')->nullable();
@@ -35,6 +36,15 @@ return new class extends Migration
             $table->index([
                 'user_id',
                 'updated_at',
+            ]);
+            $table->index([
+                'user_id',
+                'status',
+            ]);
+            $table->index([
+                'user_id',
+                'status',
+                'title',
             ]);
         });
     }

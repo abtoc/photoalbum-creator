@@ -15,7 +15,7 @@ class StoreAction
 
             $file = $request->file('cover');
             $file->storeAs(
-                sprintf('/%s/albums/%08d', Auth::user()->email, $album->id),
+                $album->getDirectory(),
                 'cover.jpg', 's3'
             );
         });

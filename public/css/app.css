@@ -19061,18 +19061,21 @@ ul#modal-images li img {
   left: 0;
 }
 
-table.fixed {
+#album-index {
   table-layout: fixed;
 }
-table.fixed .column-pages {
+#album-index .column-status {
   width: 100px;
 }
-table.fixed .column-id {
+#album-index .column-pages {
+  width: 100px;
+}
+#album-index .column-id {
   width: 80px;
 }
-table.fixed .column-uploaded {
+#album-index .column-uploaded {
   width: 180px;
 }
-table.fixed .column-command {
-  width: 90px;
+#album-index .column-command {
+  width: 110px;
 }

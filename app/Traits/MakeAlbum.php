@@ -22,9 +22,7 @@ trait MakeAlbum
         Log::info('Collecting photo start. album_id'.$album->id.',path='.$path);
         Storage::disk('local')->writeStream(
             $path,
-            Storage::disk('s3')->readStream(
-                sprintf('%s/albums/%08d/cover.jpg',$album->user->email,  $album->id)
-            )
+            Storage::disk('s3')->readStream($album->getCoverPath())
         );
         Log::info('Collected photo terminate. album_id'.$album->id.'path='.$path);
 
@@ -100,7 +98,7 @@ trait MakeAlbum
 
         Log::info('Uploading epub file. album_id='.$album->id.',path='.$current.'.epub');
         Storage::disk('s3')->writeStream(
-            sprintf('%s/albums/%08d/%08d.epub', $album->user->email, $album->id, $album->id),
+            $album->getEpubPath(),
             Storage::disk('local')->readStream($current.'.epub'),
         );
         Log::info('Uploaded epub file. album_id='.$album->id.',path='.$current.'.epub');

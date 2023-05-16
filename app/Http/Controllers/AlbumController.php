@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\Album\Status;
 use App\Jobs\MakeAlbumJob;
 use App\Models\Album;
+use App\UseCases\Albums\ForceDestroyAction;
 use App\UseCases\Albums\DestroyAction;
+use App\UseCases\Albums\RestoreAction;
 use App\UseCases\Albums\StoreAction;
 use App\UseCases\Albums\UpdateAction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class AlbumController extends Controller
@@ -18,11 +22,20 @@ class AlbumController extends Controller
         $this->authorizeResource(Album::class, 'album');
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $albums = Auth::user()->albums()
-            ->sortable(['updated_at' => 'desc'])
-            ->paginate(20);
+        $query = Auth::user()->albums()
+            ->when($request->query('status') == (string)Status::TRASHED->value, function($q){
+                return $q->onlyTrashed();
+            })
+            ->when(!is_null($request->query('status')), function($q) use($request){
+                return $q->where('status', $request->query('status'));
+            })
+            ->when($request->query('title'), function($q) use($request){
+                return $q->where('title', 'like', '%'.$request->query('title').'%');
+            })
+            ->sortable(['updated_at' => 'desc']);
+        $albums = $query->paginate(20);
         return view('albums.index', ['albums' => $albums]);
     }
 
@@ -66,10 +79,26 @@ class AlbumController extends Controller
         return to_route_query('albums.index');
     }
 
+    public function forceDestroy($album, ForceDestroyAction $action)
+    {
+        $album = Auth::user()->albums()->onlyTrashed()->where('id', $album)->firstOrFail();
+        $this->authorize('forceDelete', $album);
+        $action($album);
+        return to_route_query('albums.index');
+    }
+
+    public function restore($album, RestoreAction $action)
+    {
+        $album = Auth::user()->albums()->onlyTrashed()->where('id', $album)->firstOrFail();
+        $this->authorize('restore', $album);
+        $action($album);
+        return to_route_query('albums.index');
+    }
+
     public function cover(Request $request, Album $album)
     {
         $this->authorize('view', $album);
-        $path = sprintf('/%s/albums/%08d/cover.jpg', Auth::user()->email, $album->id);
+        $path = $album->getCoverPath();
         $type = Storage::disk('s3')->mimeType($path);
         $size = Storage::disk('s3')->size($path);
         $modified = $album->updated_at->toRfc7231String();
@@ -87,15 +116,19 @@ class AlbumController extends Controller
     public function make(Album $album)
     {
         $this->authorize('update', $album);
-        Storage::disk('s3')->delete($album->getPath());
-        MakeAlbumJob::dispatch($album);
+        DB::transaction(function() use($album){
+            Storage::disk('s3')->delete($album->getEpubPath());
+            MakeAlbumJob::dispatch($album);
+            $album->status = Status::PUBLISHING;
+            $album->save();
+        });
         return to_route_query('albums.index');
     }
 
     public function download(Album $album)
     {
         $this->authorize('view', $album);
-        return Storage::disk('s3')->download($album->getPath(), sprintf('%08d', $album->id).'.epub');
+        return Storage::disk('s3')->download($album->getEpubPath());
     }
 }
 

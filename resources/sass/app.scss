@@ -117,9 +117,12 @@ ul#modal-images {
     left: 0;
 }
 
-table.fixed {
+#album-index {
     table-layout: fixed;
     
+    .column-status {
+        width: 100px;
+    }
     .column-pages {
         width: 100px;
     }
@@ -130,6 +133,6 @@ table.fixed {
         width: 180px;
     }
     .column-command {
-        width: 90px;
+        width: 110px;
     }
 }

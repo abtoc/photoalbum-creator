@@ -26,8 +26,9 @@ class PhotoController extends Controller
         ], 201);
     }
 
-    public function view(Request $request, Photo $photo)
+    public function view(Request $request, $photo)
     {
+        $photo = Photo::withTrashed()->findOrFail($photo);
         $this->authorize('view', $photo);
         $path = $photo->getPath($request->query('size', ''));
         if(Storage::disk('s3')->missing($path)){
@@ -44,6 +45,7 @@ class PhotoController extends Controller
             'Content-type' => $type,
             'Content-length' => $size,
             'Last-Modified' => $modified,
+            'Cache-Control' => 'public',
         ]);
     }
 

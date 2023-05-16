@@ -18,7 +18,7 @@ class UpdateAction
             $file = $request->file('cover');
             if($file != null){
                 $file->storeAs(
-                    sprintf('/%s/albums/%08d', Auth::user()->email, $album->id),
+                    $album->getDirectory(),
                     'cover.jpg', 's3'
                 );
             }
