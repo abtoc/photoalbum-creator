@@ -12,6 +12,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Throwable;
 
 class MakeAlbumJob implements ShouldQueue
@@ -49,6 +50,7 @@ class MakeAlbumJob implements ShouldQueue
         }
         DB::transaction(function(){
             $this->album->status = Status::PUBLISHED;
+            $this->album->capacity = Storage::disk('s3')->size($this->album->getEpubPath());
             $this->album->save();
         });
     }

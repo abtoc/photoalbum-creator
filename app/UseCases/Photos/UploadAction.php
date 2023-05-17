@@ -17,18 +17,10 @@ class UploadAction
             $name = pathinfo($request->file->getClientOriginalName(),PATHINFO_FILENAME);
             $today = Carbon::today();
 
-            $photo = Auth::user()->photos()->withTrashed()
-                ->where('name', $name)
-                ->where('uploaded_at', $today)
-                ->first();
-            if($photo == null){
-                $photo = Auth::user()->photos()->create([
-                    'name' => $name,
-                    'uploaded_at' => $today,
-                ]);
-            } elseif($photo->deleted_at != null) {
-                $photo->restore();
-            }
+            $photo = Auth::user()->photos()->create([
+                'name' => $name,
+                'uploaded_at' => $today,
+            ]);
 
             $image = Image::make($request->file);
             $image = $image->crop(1920,3072,64,0);

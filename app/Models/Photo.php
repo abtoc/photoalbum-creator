@@ -71,9 +71,9 @@ class Photo extends Model
 
      public function getPath(string $size=''): string
     {
-        return sprintf('%s/%s%s.jpg',
+        return sprintf('%s/%08d%s.jpg',
             $this->getDirectory(),
-            $this->name, $size
+            $this->id, $size
         );
     }
 }

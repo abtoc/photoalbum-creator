@@ -25,6 +25,7 @@ class Album extends Model
         'title',
         'author',
         'publisher',
+        'capacity',
     ];
 
     /**

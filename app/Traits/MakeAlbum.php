@@ -19,23 +19,23 @@ trait MakeAlbum
     {
         Log::info('Collecting photos start. album_id='.$album->id);
         $path = $current.'/images/cover.jpg';
-        Log::info('Collecting photo start. album_id'.$album->id.',path='.$path);
+        Log::info('Collecting photo start. album_id='.$album->id.',path='.$path);
         Storage::disk('local')->writeStream(
             $path,
             Storage::disk('s3')->readStream($album->getCoverPath())
         );
-        Log::info('Collected photo terminate. album_id'.$album->id.'path='.$path);
+        Log::info('Collected photo terminate. album_id='.$album->id.'path='.$path);
 
         $query = $album->pages()
                     ->orderBy('page', 'asc');
         foreach($query->cursor() as $page){
             $path = sprintf("%s/images/%05d.jpg", $current, $page->page);
-            Log::info('Collecting photo start. album_id'.$album->id.',path='.$path);
+            Log::info('Collecting photo start. album_id='.$album->id.',path='.$path);
             Storage::disk('local')->writeStream(
                 $path,
                 Storage::disk('s3')->readStream($page->photo->getPath())
             );
-            Log::info('Collected photo terminate. album_id'.$album->id.'path='.$path);
+            Log::info('Collected photo terminate. album_id='.$album->id.'path='.$path);
         }
         Log::info('Collected photo terminate. album_id='.$album->id);
     }

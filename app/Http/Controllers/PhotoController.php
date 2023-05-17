@@ -38,7 +38,7 @@ class PhotoController extends Controller
         $type = Storage::disk('s3')->mimeType($path);
         $size = Storage::disk('s3')->size($path);
         $modified = $photo->updated_at->toRfc7231String();
-        $expires = $photo->updated_at->addDays(7)->toRfc7231String();
+//        $expires = $photo->updated_at->addDays(7)->toRfc7231String();
 
         $since = $request->header('If-Modified-Since');
         if($since){
@@ -57,7 +57,7 @@ class PhotoController extends Controller
             'Content-type' => $type,
             'Content-length' => $size,
             'Last-Modified' => $modified,
-            'Expires' => $expires,
+//            'Expires' => $expires,
             'Cache-Control' => 'public',
         ]);
     }

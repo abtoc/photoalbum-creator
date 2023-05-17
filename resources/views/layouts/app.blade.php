@@ -74,12 +74,15 @@
         </nav>
 
         <div id="content" class="container-fluid">
-            <nav id="sidebar" class="bg-light">
+            <nav id="sidebar" class="bg-light d-flex flex-column justify-content-between">
                 <ul class="navbar-nav">
                     <li class="nav-item"><a href="{{ route('home') }}" class="nav-link">{{ __('Home') }}</a></li>
                     <li class="nav-item"><a href="{{ route('photos.index') }}" class="nav-link">{{ __('Photo Library') }}</a></li>
                     <li class="nav-item"><a href="{{ route('albums.index') }}" class="nav-link">{{ __('Album') }}</a></li>
                 </ul>
+                @auth
+                    @livewire('capacity')
+                @endauth
             </nav>
             <main>@yield('content')</main>
         </div>

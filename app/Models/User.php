@@ -45,6 +45,17 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     /**
+     * GetCapacity
+     *
+     * @return int
+     */
+    public function getCapacity(): int
+    {
+        return (int)$this->photos()->withTrashed()->selectRaw('sum(capacity) as capacity')->first()->capacity
+             + (int)$this->albums()->withTrashed()->selectRaw('sum(capacity) as capacity')->first()->capacity;
+    }    
+
+    /**
      * Relation
      */
     public function photos()  { return $this->hasMany(Photo::class); }

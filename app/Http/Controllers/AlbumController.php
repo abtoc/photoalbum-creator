@@ -103,10 +103,10 @@ class AlbumController extends Controller
         $type = Storage::disk('s3')->mimeType($path);
         $size = Storage::disk('s3')->size($path);
         $modified = $album->updated_at->toRfc7231String();
-        $expires = $album->updated_at->addDays(7)->toRfc7231String();
+ //       $expires = $album->updated_at->addDays(7)->toRfc7231String();
         $stream = Storage::disk('s3')->readStream($path);
-        $since = $request->header('If-Modified-Since');
 
+        $since = $request->header('If-Modified-Since');
         if($since){
             $since = new Carbon($since);
             if($since->gte($album->updated_at)){
@@ -121,7 +121,7 @@ class AlbumController extends Controller
             'Content-type' => $type,
             'Content-length' => $size,
             'Last-Modified' => $modified,
-            'Expires' => $expires,
+//            'Expires' => $expires,
             'Cache-Control' => 'public',
         ]);
     }
