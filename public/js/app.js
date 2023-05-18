@@ -3417,8 +3417,9 @@ DragDrop.prototype.update = function () {
         item.addEventListener('dragstart', function (event) {
           event.dataTransfer.setData('text/plain', event.target.id);
           var image = new Image();
-          image.src = item.querySelector('img').src.replace('?size=_m', '?size=_s');
-          event.dataTransfer.setDragImage(image, 90, 144);
+          //image.src = item.querySelector('img').src.replace('?size=_m', '?size=_s');
+          image.src = item.querySelector('img').src;
+          event.dataTransfer.setDragImage(image, 10, 320 - 10);
         });
       });
     }
@@ -3526,6 +3527,7 @@ if (document.getElementById("uppy-select-files") != null) {
     });
     uppy.on('complete', function (result) {
       console.log('complete');
+      console.log(result);
       Livewire.emit('refreshComponent');
     });
     uppy.on('dashboard:modal-closed', function () {

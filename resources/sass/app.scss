@@ -34,6 +34,8 @@ html, body {
 
 #sidebar {
     min-width: 160px;
+    padding-right: 12px;
+    padding-bottom: 12px;
 }
 
 main {
@@ -85,7 +87,7 @@ ul#images {
 
 ul#modal-images {
 //    height: 760px;
-    height: calc(100vh - 200px);
+    height: calc(100vh - 220px);
     overflow-y: auto;
     list-style: none;
 
@@ -134,5 +136,14 @@ ul#modal-images {
     }
     .column-command {
         width: 110px;
+    }
+}
+
+#photos-info {
+    table-layout: fixed;
+    max-width: 520px;
+
+    .column-value {
+        width: 60px;
     }
 }

@@ -36,6 +36,7 @@ if(document.getElementById("uppy-select-files") != null){
             });
         uppy.on('complete', (result) => {
             console.log('complete');
+            console.log(result);
             Livewire.emit('refreshComponent')
         });
         uppy.on('dashboard:modal-closed', () => {

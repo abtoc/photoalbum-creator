@@ -1,7 +1,7 @@
 <div wire:key="photo-index" class="h-100 d-flex flex-column pt-2">
     <div class="d-flex justify-content-between">
         <div>
-            <div class="row g-1 align-items-center">
+            <div class="row g-2 align-items-center">
                 <div class="col-auto">
                     <select class="form-select form-select-sm" wire:model="uploaded_at">
                         <option value="">({{ __('Uploaded') }})</option>
@@ -25,7 +25,16 @@
             </div>
         </div>
         <div>
-            {{ __('Selected') }}:{{ $count }},{{ __('Favorites' )}}:{{ $favorites }}
+            <table id="photos-info" class="table table-sm table-bordered fixed mb-0">
+                <tbody>
+                    <tr>
+                        <th class="table-dark">{{ __('Selected') }}</th>
+                        <td class="column-value text-end">{{ $count }}</td>
+                        <th class="table-dark">{{ __('Favorites' )}}</th>
+                        <td class="column-value text-end">{{ $favorites }}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
     <hr>
