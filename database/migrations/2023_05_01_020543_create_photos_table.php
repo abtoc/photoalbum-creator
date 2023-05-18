@@ -28,11 +28,6 @@ return new class extends Migration
                 ->on('users')
                 ->references('id')
                 ->cascadeOnDelete();
-            $table->unique([
-                'user_id',
-                'uploaded_at',
-                'name',
-            ]);
             $table->index([
                 'user_id',
                 'uploaded_at',

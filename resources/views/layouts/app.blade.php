@@ -87,6 +87,7 @@
             <main>@yield('content')</main>
         </div>
     </div>
+    @stack('stripe')
     @livewireScripts
     <script src="{{ mix('js/app.js') }}"></script>
     @stack('scripts')
