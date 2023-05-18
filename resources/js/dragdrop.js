@@ -14,8 +14,9 @@ DragDrop.prototype.update = function()
                 item.addEventListener('dragstart', (event) => {
                     event.dataTransfer.setData('text/plain', event.target.id);
                     const image = new Image();
-                    image.src = item.querySelector('img').src.replace('?size=_m', '?size=_s');
-                    event.dataTransfer.setDragImage(image, 90, 144);
+                    //image.src = item.querySelector('img').src.replace('?size=_m', '?size=_s');
+                    image.src = item.querySelector('img').src;
+                    event.dataTransfer.setDragImage(image, 10, 320 - 10);
                 });
             });
         }
