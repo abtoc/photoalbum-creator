@@ -16,11 +16,11 @@ class PageIndex extends Component
 
     public function drop($from_id, $to_id)
     {
-        $from = Page::select()
+        $from = Page::query()
                 ->where('album_id', $this->album->id)
                 ->where('photo_id', $from_id)
                 ->first();
-        $to   = Page::select()
+        $to   = Page::query()
                 ->where('album_id', $this->album->id)
                 ->where('photo_id', $to_id)
                 ->first();
@@ -33,7 +33,7 @@ class PageIndex extends Component
     public function destroy($id)
     {
         DB::transaction(function() use($id){
-            $album_photo = Page::select()
+            $album_photo = Page::query()
                 ->where('album_id', $this->album->id)
                 ->where('photo_id', $id)
                 ->first();

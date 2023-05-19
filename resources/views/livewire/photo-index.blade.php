@@ -1,7 +1,16 @@
 <div wire:key="photo-index" class="h-100 d-flex flex-column pt-2">
+    @livewire('category-select')
     <div class="d-flex justify-content-between">
         <div>
             <div class="row g-2 align-items-center">
+                <div class="col-auto">
+                    <select class="form-select form-select-sm" wire:model="category">
+                        <option value="">({{ __('Category') }})</option>
+                        @foreach($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
                 <div class="col-auto">
                     <select class="form-select form-select-sm" wire:model="uploaded_at">
                         <option value="">({{ __('Uploaded') }})</option>
@@ -54,6 +63,7 @@
                     <div>
                         @if(is_null($photo->deleted_at))
                             <a href="{{ route('photos.download', ['photo' => $photo->id]) }}" class="link-dark text-decoration-none"><i class="bi bi-download"></i></a>
+                            <a href="#" class="link-dark text-decoration-none" onclick="selectCategory({{ $photo->id }}); return false;"><i class="bi bi-folder"></i></a>
                             @if($photo->album_count > 0)
                                 <a href="" class="link-dark text-decoration-none" onclick="showToast(this, 'toast-{{ $photo->id }}'); return false"><i class="bi bi-book"></i></a>
                                 <div class="toast-msg" id="toast-{{ $photo->id }}">

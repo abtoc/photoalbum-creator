@@ -13,6 +13,7 @@ class PageAdd extends Component
     public $published = false;
     public $not_albumed = false;
     public $uploaded_at = "";
+    public $category;
 
     
     public function add($id)
@@ -44,21 +45,30 @@ class PageAdd extends Component
             ->when($this->uploaded_at, function($q){
                 return $q->where('photos.uploaded_at', $this->uploaded_at);
             })
+            ->when($this->category, function($q){
+                return $q->whereIn('photos.id', function($query){
+                    $query->select('photo_id')->from('category_photo')
+                        ->where('category_id', $this->category);
+                });
+            })
             ->orderBy('photos.updated_at', 'desc');
         $photos = $query->get();
         $count = $query->count();
 
-        $favorites = Auth::user()->photos()->where('favorite', true)->count();
+        $favorites = $query->where('favorite', true)->count();
 
         $uploaded = Auth::user()->photos()->select('uploaded_at')
             ->groupBy('uploaded_at')
             ->orderBy('uploaded_at', 'desc')->get();
+
+        $categories = Auth::user()->categories()->get();
 
         return view('livewire.page-add', [
             'photos' => $photos,
             'uploaded' => $uploaded,
             'count' => $count,
             'favorites' => $favorites,
+            'categories' => $categories,
         ]);
     }
 }

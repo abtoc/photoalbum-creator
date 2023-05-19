@@ -10,6 +10,14 @@
                     <div>
                         <div class="row g-2 align-items-center">
                             <div class="col-auto">
+                                <select class="form-select form-select-sm" wire:model="category">
+                                    <option value="">({{ __('Category') }})</option>
+                                    @foreach($categories as $category)
+                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                             <div class="col-auto">
                                 <select class="form-select form-select-sm" wire:model="uploaded_at">
                                     <option value="">({{ __('Uploaded') }})</option>
                                     @foreach($uploaded as $up)

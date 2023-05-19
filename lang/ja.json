@@ -29,7 +29,10 @@
     "Photo": "フォト",
     "Photo Library": "フォトライブラリ",
     "Album": "アルバム",
+    "Category": "カテゴリ",
     "Import": "インポート",
+    "Add": "追加",
+    "Cancel": "キャンセル",
     "Favorite": "お気に入り",
     "Not Albumed":"アルバム未収録",
     "Trashed": "ゴミ箱",
@@ -57,5 +60,7 @@
     "Album deleted.": "アルバムを削除しました。",
     "Moved album to trash.": "アルバムを削除しました。",
     "Publication has begun.": "出版を開始しました。",
-    "Back from the trash.": "ゴミ箱から戻しました。"
+    "Back from the trash.": "ゴミ箱から戻しました。",
+    "Please enter the category you wish to add...": "追加するカテゴリーを入力してください...",
+    "Category Name": "カテゴリ名"
 }

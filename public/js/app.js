@@ -3344,6 +3344,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _dragdrop__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_dragdrop__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _toast__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./toast */ "./resources/js/toast.js");
 /* harmony import */ var _toast__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_toast__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _category_select__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./category_select */ "./resources/js/category_select.js");
+
 
 
 
@@ -3394,6 +3396,43 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     forceTLS: (import.meta.env.VITE_PUSHER_SCHEME ?? 'https') === 'https',
 //     enabledTransports: ['ws', 'wss'],
 // });
+
+/***/ }),
+
+/***/ "./resources/js/category_select.js":
+/*!*****************************************!*\
+  !*** ./resources/js/category_select.js ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "selectCategory": () => (/* binding */ selectCategory),
+/* harmony export */   "selectCategoryNew": () => (/* binding */ selectCategoryNew)
+/* harmony export */ });
+/* harmony import */ var bootstrap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap.esm.js");
+
+var selectCategoryNew = function selectCategoryNew(id) {
+  var element = document.getElementById('category-select');
+  var modal = new bootstrap__WEBPACK_IMPORTED_MODULE_0__.Modal(element);
+  Livewire.on('modalCloseed', function () {
+    modal.hide();
+  });
+  modal.show();
+  Livewire.emit('modalOpenNew', id);
+};
+var selectCategory = function selectCategory(id) {
+  var element = document.getElementById('category-select');
+  var modal = new bootstrap__WEBPACK_IMPORTED_MODULE_0__.Modal(element);
+  Livewire.on('modalCloseed', function () {
+    modal.hide();
+  });
+  modal.show();
+  Livewire.emit('modalOpen', id);
+};
+window.selectCategoryNew = selectCategoryNew;
+window.selectCategory = selectCategory;
 
 /***/ }),
 
@@ -3493,7 +3532,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _uppy_dashboard__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @uppy/dashboard */ "./node_modules/@uppy/dashboard/lib/index.js");
 /* harmony import */ var _uppy_google_drive__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @uppy/google-drive */ "./node_modules/@uppy/google-drive/lib/index.js");
 /* harmony import */ var _uppy_locales_lib_ja_JP__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @uppy/locales/lib/ja_JP */ "./node_modules/@uppy/locales/lib/ja_JP.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! axios */ "./node_modules/axios/lib/axios.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! axios */ "./node_modules/axios/lib/axios.js");
+/* harmony import */ var _category_select__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./category_select */ "./resources/js/category_select.js");
+
 
 
 
@@ -3501,7 +3542,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 if (document.getElementById("uppy-select-files") != null) {
-  axios__WEBPACK_IMPORTED_MODULE_5__["default"].get('/api-token').then(function (response) {
+  axios__WEBPACK_IMPORTED_MODULE_6__["default"].get('/api-token').then(function (response) {
+    var uploaded = false;
     var uppy = new _uppy_core__WEBPACK_IMPORTED_MODULE_0__["default"]({
       debug: true,
       restrictions: {
@@ -3530,10 +3572,12 @@ if (document.getElementById("uppy-select-files") != null) {
     });
     uppy.on('complete', function (result) {
       console.log('complete');
-      console.log(result);
+      uploaded = true;
       Livewire.emit('refreshComponent');
     });
     uppy.on('dashboard:modal-closed', function () {
+      if (uploaded) (0,_category_select__WEBPACK_IMPORTED_MODULE_5__.selectCategoryNew)(response.data.upload_id);
+      uploaded = false;
       console.log('modal-closed');
     });
     uppy.on('upload-error', function (file, error, response) {

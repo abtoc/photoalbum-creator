@@ -14,6 +14,7 @@ class PhotoIndex extends Component
     public $published = false;
     public $not_albumed = false;
     public $trashed = false;
+    public $category = "";
 
     protected $listeners = ['refreshComponent' => '$refresh'];
 
@@ -62,7 +63,7 @@ class PhotoIndex extends Component
     {
         $this->dispatchBrowserEvent('reloadViewer');
 
-        $query = Auth::user()->photos()->select()
+        $query = Auth::user()->photos()
             ->when($this->trashed, function($q){
                 return $q->onlyTrashed();
             })
@@ -74,6 +75,12 @@ class PhotoIndex extends Component
             })
             ->when($this->uploaded_at, function($q){
                 return $q->where('uploaded_at', $this->uploaded_at);
+            })
+            ->when($this->category, function($q){
+                return $q->whereIn('id', function($query){
+                    $query->select('photo_id')->from('category_photo')
+                        ->where('category_id', $this->category);
+                });
             })
             ->orderBy('created_at', 'desc');
         $photos = $query->get();
@@ -87,11 +94,14 @@ class PhotoIndex extends Component
             ->groupBy('uploaded_at')
             ->orderBy('uploaded_at', 'desc')->get();
 
+        $categories = Auth::user()->categories()->get();
+
         return view('livewire.photo-index', [
             'photos' => $photos,
             'uploaded' => $uploaded,
             'count' => $count,
             'favorites' => $favorites,
+            'categories' => $categories,
         ]);
     }
 }

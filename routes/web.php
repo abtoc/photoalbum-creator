@@ -2,6 +2,7 @@
 
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,14 +23,16 @@ Auth::routes(['verify' => true]);
 
 Route::get('/api-token', function(){
     if(Auth::check()){
+        $upload_id = Str::ulid()->toBase58();
         return response()->json([
             'api_token' => Auth::user()->api_token,
-            'endpoint' => route('photos.upload', ['api_token' => Auth::user()->api_token]),
+            'endpoint' => route('photos.upload', ['api_token' => Auth::user()->api_token, 'upload_id' => $upload_id]),
             'max_file_size' => config('upload.max_file_size'),
             'companion_url' => config('upload.companion_url'),
             'count' => config('upload.count'),
             'limit' => config('upload.limit'),
             'timeout' => config('upload.timeout'),
+            'upload_id' => $upload_id,
         ]);
     } else {
         return response()->json(['api_token' => ''], 403);
@@ -56,4 +59,6 @@ Route::middleware(['verified'])->group(function(){
     Route::get('/albums/{album}/download', [App\Http\Controllers\AlbumController::class, 'download'])->name('albums.download');
 
     Route::get('/albums/{album}', [App\Http\Controllers\PageController::class, 'index'])->name('pages.index');
+
+    Route::get('/category', App\Http\Livewire\Category::class)->name('category.index');
 });

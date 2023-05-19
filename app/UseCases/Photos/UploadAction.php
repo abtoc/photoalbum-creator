@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Redis;
 
 class UploadAction
 {
@@ -40,6 +41,9 @@ class UploadAction
             $image_s = $image_s->__toString();
             Storage::disk('s3')->put($photo->getPath('_s'), $image_s);
             $photo->save();
+ 
+            $upload_id = 'upload-'.$request->query('upload_id');
+            Redis::lPush($upload_id, $photo->id);
         });
     }
 }

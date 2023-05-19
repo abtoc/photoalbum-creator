@@ -4,10 +4,12 @@ import Dashboard from "@uppy/dashboard";
 import GoogleDrive from "@uppy/google-drive";
 import ja_JP from '@uppy/locales/lib/ja_JP';
 import axios from "axios";
+import { selectCategoryNew } from "./category_select";
 
 if(document.getElementById("uppy-select-files") != null){
     axios.get('/api-token')
     .then(function(response){
+        let uploaded = false;
         const uppy = new Uppy({
                 debug: true,
                 restrictions: {
@@ -39,10 +41,12 @@ if(document.getElementById("uppy-select-files") != null){
             });
         uppy.on('complete', (result) => {
             console.log('complete');
-            console.log(result);
+            uploaded = true;
             Livewire.emit('refreshComponent')
         });
         uppy.on('dashboard:modal-closed', () => {
+            if(uploaded) selectCategoryNew(response.data.upload_id);
+            uploaded = false;
             console.log('modal-closed');
         });
         uppy.on('upload-error', (file, error, response) => {

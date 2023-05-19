@@ -55,6 +55,7 @@ class Photo extends Model
      */
     public function user() { return $this->belongsTo(User::class); }
     public function pages() { return $this->hasMany(Page::class); }
+    public function categories() { return $this->belongsToMany(Category::class, 'category_photo'); }
 
     /**
      * Get file path

@@ -37,7 +37,7 @@ class AlbumController extends Controller
                 return $q->where('title', 'like', '%'.$request->query('title').'%');
             })
             ->sortable(['updated_at' => 'desc']);
-        $albums = $query->paginate(20);
+        $albums = $query->paginate(10);
         return view('albums.index', ['albums' => $albums]);
     }
 
