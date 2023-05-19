@@ -33,6 +33,9 @@ if(document.getElementById("uppy-select-files") != null){
                 },
                 limit: response.data.limit,
                 timeout: response.data.timeout,
+                getResponseError: (responseText, response) => {
+                    return new Error(JSON.parse(responseText).message);
+                },
             });
         uppy.on('complete', (result) => {
             console.log('complete');

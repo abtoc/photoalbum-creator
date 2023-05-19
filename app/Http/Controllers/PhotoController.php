@@ -21,6 +21,11 @@ class PhotoController extends Controller
     }
 
     public function upload(Request $request, UploadAction $action){
+        if($request->user()->checkCapacityOver()){
+            return response()->json([
+                'message' => __('Capacity is full.'),
+            ], 507);
+        }
         $action($request);
         return response()->json([
         ], 201);

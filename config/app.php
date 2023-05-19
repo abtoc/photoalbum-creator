@@ -189,6 +189,7 @@ return [
          */
         Intervention\Image\ImageServiceProvider::class,
         Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
+        Prologue\Alerts\AlertsServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -214,6 +215,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         'Image' => Intervention\Image\Facades\Image::class,
+        'Alert' => Prologue\Alerts\Facades\Alert::class,
     ])->toArray(),
 
 ];

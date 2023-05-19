@@ -3523,7 +3523,10 @@ if (document.getElementById("uppy-select-files") != null) {
         'Authorization': 'Bearer ' + response.data.api_token
       },
       limit: response.data.limit,
-      timeout: response.data.timeout
+      timeout: response.data.timeout,
+      getResponseError: function getResponseError(responseText, response) {
+        return new Error(JSON.parse(responseText).message);
+      }
     });
     uppy.on('complete', function (result) {
       console.log('complete');

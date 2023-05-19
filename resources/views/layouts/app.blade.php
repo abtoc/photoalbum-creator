@@ -84,7 +84,10 @@
                     @livewire('capacity')
                 @endauth
             </nav>
-            <main>@yield('content')</main>
+            <main>
+                <x-alert></x-alert>
+                @yield('content')
+            </main>
         </div>
     </div>
     @stack('stripe')

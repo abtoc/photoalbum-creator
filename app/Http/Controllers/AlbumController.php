@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Prologue\Alerts\Facades\Alert;
 
 class AlbumController extends Controller
 {
@@ -54,6 +55,8 @@ class AlbumController extends Controller
             'cover' => ['required', 'file', 'mimetypes:image/jpeg', 'max:1024'],
         ]);
         $action($request);
+        Alert::info(__('Album created.'));
+        Alert::flash();
         return to_route_query('albums.index');
     }
 
@@ -71,12 +74,16 @@ class AlbumController extends Controller
             'cover' => ['nullable', 'file', 'mimetypes:image/jpeg', 'max:1024'],
         ]);
         $action($request, $album);
+        Alert::info(__('Album updated.'));
+        Alert::flash();
         return to_route_query('albums.index');
     }
 
     public function destroy(Album $album, DestroyAction $action)
     {
         $action($album);
+        Alert::info(__('Moved album to trash.'));
+        Alert::flash();
         return to_route_query('albums.index');
     }
 
@@ -85,6 +92,8 @@ class AlbumController extends Controller
         $album = Auth::user()->albums()->onlyTrashed()->where('id', $album)->firstOrFail();
         $this->authorize('forceDelete', $album);
         $action($album);
+        Alert::info(__('Album deleted.'));
+        Alert::flash();
         return to_route_query('albums.index');
     }
 
@@ -93,6 +102,8 @@ class AlbumController extends Controller
         $album = Auth::user()->albums()->onlyTrashed()->where('id', $album)->firstOrFail();
         $this->authorize('restore', $album);
         $action($album);
+        Alert::info(__('Back from the trash.'));
+        Alert::flash();
         return to_route_query('albums.index');
     }
 
@@ -135,6 +146,8 @@ class AlbumController extends Controller
             $album->status = Status::PUBLISHING;
             $album->save();
         });
+        Alert::info(__('Publication has begun.'));
+        Alert::flash();
         return to_route_query('albums.index');
     }
 

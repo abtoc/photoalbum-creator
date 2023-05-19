@@ -2,7 +2,10 @@
 
 @section('content')
 <div class="wrap container-fluid">
-    <h1 class="h1-inline">{{ __('Album') }}</h1><a href="{{ route_query('albums.create') }}" class="btn btn-outline-primary btn-sm">{{ __('Create New') }}</a>
+    <div>
+        <h1 class="h1-inline">{{ __('Album') }}</h1>
+        <a href="{{ route_query('albums.create') }}" class="btn btn-outline-primary btn-sm ad-inline mb-2">{{ __('Create New') }}</a>
+    </div>
     <hr>
     <form action="{{ route('albums.index') }}" method="GET" class="row g-1">
         <label for="search-status" class="col-auto col-form-label text-md-end m-0">{{ __('Status') }}:</label>
@@ -43,58 +46,7 @@
         </thead>
         <tbody>
             @foreach($albums as $album)
-                <tr>
-                    <td>@livewire('album-status', ['album' => $album], key($album->id))</td>
-                    <td> {{ $album->title }}</td>
-                    <td>{{ $album->author }}</td>
-                    <td>{{ $album->publisher }}</td>
-                    <td class="text-center">
-                        {{ $album->pages()->count() }}
-                    </td>
-                    <td>{{ $album->updated_at->toDateTimeString() }}</td>
-                    <td>{{ $album->id }}</td>
-                    <td class="text-end">
-                        @if(is_null($album->deleted_at))
-                            @livewire('album-download', ['album' => $album], key($album->id))
-                            @if($album->photo_count > 0)
-                                <a href="{{ route_query('albums.make', ['album' => $album]) }}" class="link-dark text-decoration-none" onclick="event.preventDefault(); document.getElementById('albums-make-{{$album->id}}').submit()">
-                                    <i class="bi bi-book"></i>
-                                </a>
-                                <form id="albums-make-{{$album->id}}" method="POST" class="d-none" action="{{ route_query('albums.make', ['album' => $album]) }}">
-                                    @csrf
-                                </form>
-                                @endif
-                            <a href="{{ route_query('pages.index', ['album' => $album]) }}" class="link-dark text-decoration-none">
-                                <i class="bi bi-images"></i>
-                            </a>
-                            <a href="{{ route_query('albums.edit', ['album' => $album]) }}" class="link-dark text-decoration-none">
-                                <i class="bi bi-pencil"></i>
-                            </a>
-                            <a href="{{ route_query('albums.destroy', ['album' => $album]) }}" class="link-dark text-decoration-none" onclick="event.preventDefault(); document.getElementById('albums-destroy-{{$album->id}}').submit()">
-                                <i class="bi bi-trash"></i>
-                            </a>
-                            <form id="albums-destroy-{{$album->id}}" method="POST" class="d-none" action="{{ route_query('albums.destroy', ['album' => $album]) }}">
-                                @csrf
-                                @method('DELETE');
-                            </form>
-                        @else
-                            <a href="{{ route_query('albums.restore', ['album' => $album]) }}" class="link-dark text-decoration-none" onclick="event.preventDefault(); document.getElementById('albums-restore-{{$album->id}}').submit()">
-                                <i class="bi bi-reply"></i>
-                            </a>
-                            <form id="albums-restore-{{$album->id}}" method="POST" class="d-none" action="{{ route_query('albums.restore', ['album' => $album]) }}">
-                                @csrf
-                                @method('PUT');
-                            </form>
-                            <a href="{{ route_query('albums.force', ['album' => $album]) }}" class="link-dark text-decoration-none" onclick="event.preventDefault(); document.getElementById('albums-force-{{$album->id}}').submit()">
-                                <i class="bi bi-x-lg"></i>
-                            </a>
-                            <form id="albums-force-{{$album->id}}" method="POST" class="d-none" action="{{ route_query('albums.force', ['album' => $album]) }}">
-                                @csrf
-                                @method('DELETE');
-                            </form>
-                        @endif
-                    </td>
-                </tr>
+                @livewire('album-index-row', ['album' => $album], key($album->id))
             @endforeach
         </tbody>
     </table>

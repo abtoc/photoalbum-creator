@@ -51,7 +51,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function getCapacity(): int
     {
-        return 100 * 1024 * 1024;
+        return 1024 * 1024 * 1024;
     }    
 
     public function getUsedCapacity(): int
@@ -59,6 +59,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return (int)$this->photos()->withTrashed()->selectRaw('sum(capacity) as capacity')->first()->capacity
              + (int)$this->albums()->withTrashed()->selectRaw('sum(capacity) as capacity')->first()->capacity;
     }    
+
+    public function checkCapacityOver(): bool
+    {
+        return $this->getUsedCapacity() >= $this->getCapacity();
+    }
 
     /**
      * Relation

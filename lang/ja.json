@@ -50,6 +50,12 @@
     "Update": "更新",
     "Updated": "更新日時",
     "Add Photo": "フォト追加",
-    "Uploaded": "アップロード日"
-    
+    "Uploaded": "アップロード日",
+    "Capacity is full.": "容量が一杯です。",
+    "Album created.": "アルバムを作成しました。", 
+    "Album updated.": "アルバムを更新しました。",
+    "Album deleted.": "アルバムを削除しました。",
+    "Moved album to trash.": "アルバムを削除しました。",
+    "Publication has begun.": "出版を開始しました。",
+    "Back from the trash.": "ゴミ箱から戻しました。"
 }
