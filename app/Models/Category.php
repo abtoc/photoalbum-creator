@@ -48,5 +48,6 @@ class Category extends Model
     /**
      * Relation
      */
+    public function user() { return $this->belongsTo(User::class); }
     public function photos() { return $this->belongsToMany(Photo::class, 'category_photo'); }
 }

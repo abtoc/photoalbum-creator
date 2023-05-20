@@ -61,4 +61,7 @@ Route::middleware(['verified'])->group(function(){
     Route::get('/albums/{album}', [App\Http\Controllers\PageController::class, 'index'])->name('pages.index');
 
     Route::get('/category', App\Http\Livewire\Category::class)->name('category.index');
+
+    Route::get('/options', [App\Http\Controllers\OptionController::class, 'index'])->name('options.index');
+    Route::put('/options', [App\Http\Controllers\OptionController::class, 'update'])->name('options.update');
 });

@@ -80,6 +80,7 @@
                     <li class="nav-item"><a href="{{ route('photos.index') }}" class="nav-link">{{ __('Photo Library') }}</a></li>
                     <li class="nav-item"><a href="{{ route('category.index') }}" class="nav-link">{{ __('Category') }}</a></li>
                     <li class="nav-item"><a href="{{ route('albums.index') }}" class="nav-link">{{ __('Album') }}</a></li>
+                    <li class="nav-item"><a href="{{ route('options.index') }}" class="nav-link">{{ __('Setting') }}</a></li>
                 </ul>
                 @auth
                     @livewire('capacity')

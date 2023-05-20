@@ -43,7 +43,7 @@
                             <label for="publisher" class="col-md-4 col-form-label text-md-end">{{ __('Publisher') }}</label>
 
                             <div class="col-md-6">
-                                <input id="publisher" type="text" class="form-control @error('publisher') is-invalid @enderror" name="publisher" value="{{ old('publisher') }}" autocomplete="author" autofocus>
+                                <input id="publisher" type="text" class="form-control @error('publisher') is-invalid @enderror" name="publisher" value="{{ old('publisher', option('publisher')) }}" autocomplete="author" autofocus>
 
                                 @error('publisher')
                                     <span class="invalid-feedback" role="alert">

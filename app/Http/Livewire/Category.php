@@ -83,7 +83,7 @@ class Category extends Component
 
     public function render()
     {
-        $categories = Auth::user()->categories()->paginate(10);
+        $categories = Auth::user()->categories()->paginate(option('lines_per_page'));
 
         return view('livewire.category', ['categories' => $categories])
             ->extends('layouts.app');

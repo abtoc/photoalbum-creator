@@ -6,6 +6,7 @@ use App\Events\AlbumDeleted;
 use App\Events\PhotoDeleted;
 use App\Listeners\AlbumDeletedNotification;
 use App\Listeners\PhotoDeletedNotification;
+use App\Listeners\UserOptionsNotification;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -21,6 +22,7 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             SendEmailVerificationNotification::class,
+            UserOptionsNotification::class,
         ],
         AlbumDeleted::class => [
             AlbumDeletedNotification::class,
