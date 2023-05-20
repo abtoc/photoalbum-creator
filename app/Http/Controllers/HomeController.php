@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -23,6 +24,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $overview = (object)[
+            'photo_count' => Auth::user()->photos()->count(),
+            'album_count' => Auth::user()->albums()->count(),
+            'capacity' => Auth::user()->getCapacity(),
+            'used_capacity' => Auth::user()->getUsedCapacity(),
+        ];
+        return view('home', [
+            'overview' => $overview,
+        ]);
     }
 }

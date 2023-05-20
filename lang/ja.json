@@ -31,6 +31,9 @@
     "Album": "アルバム",
     "Category": "カテゴリ",
     "Setting": "設定",
+    "Notice": "お知らせ",
+    "Overview": "概要",
+    "Activity": "アクティビティ",
     "Import": "インポート",
     "Add": "追加",
     "Cancel": "キャンセル",
@@ -66,5 +69,8 @@
     "Please enter the category you wish to add...": "追加するカテゴリーを入力してください...",
     "Category Name": "カテゴリ名",
     "Number of lines to display on a page":"１ページに表示する件数",
-    "Number of days to clear the trash": "ゴミ箱を消去する日数"
+    "Number of days to clear the trash": "ゴミ箱を消去する日数",
+    "%d photos.":"%d件の写真",
+    "%d albums.":"%d件のアルバム",
+    "%s out of %s use.": "%s 中 %s を使用"
 }
