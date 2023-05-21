@@ -96,7 +96,13 @@ return [
     'not_in'               => '選択された:attributeは正しくありません。',
     'not_regex'            => ':attributeの形式が正しくありません。',
     'numeric'              => ':attributeには、数字を指定してください。',
-    'password'             => '正しいパスワードを指定してください。',
+    'password' => [
+        'letters' => ':attributeには、少なくとも1つの文字が含まれていなければなりません。',
+        'mixed' => ':attributeには、少なくとも大文字と小文字を1つずつ含める必要があります。',
+        'numbers' => ':attributeには、少なくとも1つの数値が含まれている必要があります。',
+        'symbols' => ':attributeには、少なくとも1つの記号が含まれていなければならない。',
+        'uncompromised' => '指定された :attributeは、データ漏洩に登場したものです。別の:attributeを選択してください。',
+    ],
     'present'              => ':attributeが存在していません。',
     'regex'                => ':attributeに正しい形式を指定してください。',
     'required'             => ':attributeは必ず指定してください。',
@@ -153,6 +159,9 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'lines_per_page' => '件数',
+        'expire' => '日数',
+    ],
 
 ];
