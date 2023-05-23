@@ -19,10 +19,10 @@
 </head>
 <body>
     <div id="app">
-        <nav id="header" class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav id="header" class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
             <div class="container-fluid">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    {{ config('app.name', 'Laravel') }}({{ __('Admin') }})
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -37,22 +37,22 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
-                        @guest
-                            @if (Route::has('login'))
+                        @guest('admin')
+                            @if (Route::has('admin.login'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    <a class="nav-link" href="{{ route('admin.login') }}">{{ __('Login') }}</a>
                                 </li>
                             @endif
 
-                            @if (Route::has('register'))
+                            @if (Route::has('admin.register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ route('admin.register') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
+                                    {{ Auth::guard('admin')->user()->name }}
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
@@ -62,7 +62,7 @@
                                         {{ __('Logout') }}
                                     </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
                                 </div>
@@ -74,17 +74,10 @@
         </nav>
 
         <div id="content" class="container-fluid px-0">
-            <nav id="sidebar" class="bg-light d-flex flex-column justify-content-between">
+            <nav id="sidebar" class="navbar-dark bg-secondary d-flex flex-column justify-content-between">
                 <ul class="navbar-nav">
-                    <li class="nav-item"><a href="{{ route('home') }}" class="nav-link">{{ __('Home') }}</a></li>
-                    <li class="nav-item"><a href="{{ route('photos.index') }}" class="nav-link">{{ __('Photo Library') }}</a></li>
-                    <li class="nav-item"><a href="{{ route('category.index') }}" class="nav-link">{{ __('Category') }}</a></li>
-                    <li class="nav-item"><a href="{{ route('albums.index') }}" class="nav-link">{{ __('Album') }}</a></li>
-                    <li class="nav-item"><a href="{{ route('options.index') }}" class="nav-link">{{ __('Setting') }}</a></li>
+                    <li class="nav-item"><a href="{{ route('admin.home') }}" class="nav-link">{{ __('Home') }}</a></li>
                 </ul>
-                @auth
-                    @livewire('capacity')
-                @endauth
             </nav>
             <main>
                 <x-alert></x-alert>
@@ -92,7 +85,6 @@
             </main>
         </div>
     </div>
-    @stack('stripe')
     @livewireScripts
     <script src="{{ mix('js/app.js') }}"></script>
     @stack('scripts')

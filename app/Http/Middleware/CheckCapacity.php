@@ -18,7 +18,7 @@ class CheckCapacity
     public function handle(Request $request, Closure $next)
     {
         $user = $request->user();
-        if(!is_null($user) && $user->checkCapacityOver()){
+        if(!is_null($user) && method_exists($user, 'checkCapacityOver') && $user->checkCapacityOver()){
             Alert::danger(__('Capacity is full.'));
             Alert::flash();
         }

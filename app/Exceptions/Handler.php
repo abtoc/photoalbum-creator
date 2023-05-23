@@ -61,6 +61,9 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $e)
     {
         if($e instanceof TokenMismatchException){
+            if($request->routeIs('admin.*')){
+                return redirect(route('admin.login'));
+            }
             return redirect(route('login'));
         }
         return parent::render($request, $e);

@@ -26,10 +26,12 @@
     "If you did not request a password reset, no further action is required.":"心当たりがない場合は、本メッセージは破棄してください。",
 
     "Home": "ホーム",
+    "Admin": "管理",
     "Photo": "フォト",
     "Photo Library": "フォトライブラリ",
     "Album": "アルバム",
     "Category": "カテゴリ",
+    "Category Select": "カテゴリ選択",
     "Setting": "設定",
     "Notice": "お知らせ",
     "Overview": "概要",

@@ -65,3 +65,15 @@ Route::middleware(['verified'])->group(function(){
     Route::get('/options', [App\Http\Controllers\OptionController::class, 'index'])->name('options.index');
     Route::put('/options', [App\Http\Controllers\OptionController::class, 'update'])->name('options.update');
 });
+
+Route::get('/admin/login', [App\Http\Controllers\Admin\Auth\LoginController::class, 'showLoginForm']);
+Route::post('/admin/login', [App\Http\Controllers\Admin\Auth\LoginController::class, 'login'])->name('admin.login');
+Route::post('/admin/logout', [App\Http\Controllers\Admin\Auth\LoginController::class, 'logout'])->name('admin.logout');
+Route::get('/admin/password/reset', [App\Http\Controllers\Admin\Auth\ForgotPasswodController::class, 'showLinkRequestForm'])->name('admin.password.request');
+Route::post('/admin/password/email', [App\Http\Controllers\Admin\Auth\ForgotPasswodController::class, 'sendResetLinkEmail'])->name('admin.password.email');
+Route::get('/admin/password/reset/{token}', [App\Http\Controllers\Admin\Auth\ResetPasswordController::class, 'showResetForm'])->name('admin.password.reset');
+Route::post('/admin/password/reset', [App\Http\Controllers\Admin\Auth\ResetPasswordController::class, 'reset'])->name('admin.password.update');
+
+Route::middleware(['auth:admin'])->group(function(){
+    Route::get('/admin', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('admin.home');
+});

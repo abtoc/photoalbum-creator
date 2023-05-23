@@ -1,14 +1,18 @@
-@extends('layouts.app')
+@extends(@isset($authgroup)? 'layouts.'.$authgroup : 'layouts.app')
 
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+                <div class="card-header">{{ isset($authgroup) ? __(ucwords($authgroup)) : ""}}{{ __('Login') }}</div>
 
                 <div class="card-body">
+                    @isset($authgroup)
+                    <form method="POST" action="{{ route($authgroup.'.login') }}">
+                    @else
                     <form method="POST" action="{{ route('login') }}">
+                    @endif
                         @csrf
 
                         <div class="row mb-3">
@@ -57,8 +61,8 @@
                                     {{ __('Login') }}
                                 </button>
 
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
+                                @if (Route::has(isset($autgroup) ? $authgroup.'.password.request' : 'password.request'))
+                                    <a class="btn btn-link" href="{{ route(isset($authgroup) ? $authgroup.'.password.request' : 'password.request') }}">
                                         {{ __('Forgot Your Password?') }}
                                     </a>
                                 @endif
