@@ -11,22 +11,21 @@
     },
     "devDependencies": {
         "@popperjs/core": "^2.11.6",
-        "axios": "^1.1.2",
-        "bootstrap": "^5.2.3",
-        "laravel-mix": "^6.0.49",
-        "lodash": "^4.17.19",
-        "postcss": "^8.1.14",
-        "resolve-url-loader": "^5.0.0",
-        "sass": "^1.56.1",
-        "sass-loader": "^13.2.2"
-    },
-    "dependencies": {
         "@uppy/core": "^3.2.0",
         "@uppy/dashboard": "^3.4.0",
         "@uppy/google-drive": "^3.1.1",
         "@uppy/locales": "^3.2.0",
         "@uppy/xhr-upload": "^3.2.0",
+        "axios": "^1.1.2",
+        "bootstrap": "^5.2.3",
         "bootstrap-icons": "^1.10.5",
+        "github-markdown-css": "^5.2.0",
+        "laravel-mix": "^6.0.49",
+        "lodash": "^4.17.19",
+        "postcss": "^8.1.14",
+        "resolve-url-loader": "^5.0.0",
+        "sass": "^1.56.1",
+        "sass-loader": "^13.2.2",
         "viewer": "^0.10.11",
         "viewerjs": "^1.11.3"
     }

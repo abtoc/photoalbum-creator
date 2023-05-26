@@ -74,5 +74,10 @@
     "Number of days to clear the trash": "ゴミ箱を消去する日数",
     "%d photos.":"%d件の写真",
     "%d albums.":"%d件のアルバム",
-    "%s out of %s use.": "%s 中 %s を使用"
+    "%s out of %s use.": "%s 中 %s を使用",
+    "Message": "メッセージ",
+    "Draft": "草稿",
+    "Publish": "公開",
+    "No notices.": "お知らせはありません。",
+    "Preview": "プレビュー"
 }

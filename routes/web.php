@@ -64,6 +64,8 @@ Route::middleware(['verified'])->group(function(){
 
     Route::get('/options', [App\Http\Controllers\OptionController::class, 'index'])->name('options.index');
     Route::put('/options', [App\Http\Controllers\OptionController::class, 'update'])->name('options.update');
+
+    Route::get('/news/{news}', [App\Http\Controllers\Admin\NewsController::class, 'show'])->name('news.view');
 });
 
 Route::get('/admin/login', [App\Http\Controllers\Admin\Auth\LoginController::class, 'showLoginForm']);
@@ -76,4 +78,12 @@ Route::post('/admin/password/reset', [App\Http\Controllers\Admin\Auth\ResetPassw
 
 Route::middleware(['auth:admin'])->group(function(){
     Route::get('/admin', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('admin.home');
+
+    Route::get('/admin/news', [App\Http\Controllers\Admin\NewsController::class, 'index'])->name('admin.news.index');
+    Route::get('/admin/news/create', [App\Http\Controllers\Admin\NewsController::class, 'create'])->name('admin.news.create');
+    Route::post('/admin/news', [App\Http\Controllers\Admin\NewsController::class, 'store'])->name('admin.news.store');
+    Route::get('/admin/news/{news}/edit', [App\Http\Controllers\Admin\NewsController::class, 'edit'])->name('admin.news.edit');
+    Route::put('/admin/news/{news}', [App\Http\Controllers\Admin\NewsController::class, 'update'])->name('admin.news.update');
+    Route::get('/admin/news/{news}', [App\Http\Controllers\Admin\NewsController::class, 'show'])->name('admin.news.view');
+    Route::delete('/admin/news/{news}', [App\Http\Controllers\Admin\NewsController::class, 'destroy'])->name('admin.news.destroy');
 });

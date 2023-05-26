@@ -7,7 +7,14 @@
             <div class="card">
                 <div class="card-header">{{ __('Notice') }}</div>
                 <div class="card-body">
-
+                    <dl>
+                        @forelse($news_list as $news)
+                            <dt class="float-start">{{ $news->updated_at->toDateString() }}</dt>
+                            <dd style="margin-left: 100px;"><a href="{{ route('news.view', ['news' => $news]) }}">{{ $news->title }}</a></dd>
+                        @empty
+                            {{ __('No notices.') }}
+                        @endforelse
+                    </dl>
                 </div>
             </div>
         </div>

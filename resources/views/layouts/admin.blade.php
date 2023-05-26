@@ -77,6 +77,7 @@
             <nav id="sidebar" class="navbar-dark bg-secondary d-flex flex-column justify-content-between">
                 <ul class="navbar-nav">
                     <li class="nav-item"><a href="{{ route('admin.home') }}" class="nav-link">{{ __('Home') }}</a></li>
+                    <li class="nav-item"><a href="{{ route('admin.news.index') }}" class="nav-link">{{ __('Notice') }}</a></li>
                 </ul>
             </nav>
             <main>

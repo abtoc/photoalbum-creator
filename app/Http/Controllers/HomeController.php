@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\News\Status;
+use App\Models\News;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,6 +26,11 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $news_list = News::query()
+                    ->orderBy('updated_at', 'desc')
+                    ->where('status', Status::PUBLISH)
+                    ->limit(10)
+                    ->get();
         $overview = (object)[
             'photo_count' => Auth::user()->photos()->count(),
             'album_count' => Auth::user()->albums()->count(),
@@ -31,6 +38,7 @@ class HomeController extends Controller
             'used_capacity' => Auth::user()->getUsedCapacity(),
         ];
         return view('home', [
+            'news_list' => $news_list,
             'overview' => $overview,
         ]);
     }

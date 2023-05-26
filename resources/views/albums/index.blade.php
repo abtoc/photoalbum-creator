@@ -4,7 +4,7 @@
 <div class="wrap container-fluid">
     <div>
         <h1 class="h1-inline">{{ __('Album') }}</h1>
-        <a href="{{ route_query('albums.create') }}" class="btn btn-outline-primary btn-sm ad-inline mb-2">{{ __('Create New') }}</a>
+        <a href="{{ route_query('albums.create') }}" class="btn btn-outline-primary btn-sm d-inline mb-2">{{ __('Create New') }}</a>
     </div>
     <hr>
     <form action="{{ route('albums.index') }}" method="GET" class="row g-1">

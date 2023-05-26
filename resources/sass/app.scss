@@ -15,6 +15,9 @@
 // Viewr
 @import 'viewerjs/src/index.scss';
 
+// github
+@import 'github-markdown-css/github-markdown';
+
 html, body {
     height: 100vh;
 }
@@ -144,6 +147,20 @@ ul#modal-images {
     max-width: 520px;
 
     .column-value {
+        width: 60px;
+    }
+}
+
+#news-index {
+    table-layout: fixed;
+
+    .column-status {
+        width: 100px;
+    }
+    .column-updated {
+        width: 120px;
+    }
+    .column-command {
         width: 60px;
     }
 }
