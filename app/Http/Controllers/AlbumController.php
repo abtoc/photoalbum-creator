@@ -38,6 +38,12 @@ class AlbumController extends Controller
             })
             ->sortable(['updated_at' => 'desc']);
         $albums = $query->paginate(option('lines_per_page'));
+
+        if($request->query('status') == (string)Status::TRASHED->value){
+            Alert::warning(sprintf(__('Items in the trash will be removed after %d days.'),(int)config('app.expire_day')));
+            Alert::flash();
+        }
+
         return view('albums.index', ['albums' => $albums]);
     }
 

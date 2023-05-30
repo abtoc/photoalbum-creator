@@ -10,8 +10,8 @@ class PageAdd extends Component
 {
     public $album;
     public $favorite = false;
-    public $published = false;
-    public $not_albumed = false;
+    public $published = true;
+    public $not_albumed = true;
     public $uploaded_at = "";
     public $category;
 

@@ -40,20 +40,6 @@
                             </div>
                         </div>
 
-                        <div class="row mb-3">
-                            <label for="expire" class="col-md-4 col-form-label text-md-end">{{ __('Number of days to clear the trash') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="expire" type="text" class="form-control @error('expire') is-invalid @enderror" name="expire" value="{{ old('expire', $option->expire) }}" required autocomplete="expire" autofocus>
-
-                                @error('expire')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">

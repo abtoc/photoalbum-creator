@@ -8,12 +8,13 @@ use Kyslik\ColumnSortable\Sortable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Prunable;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class Album extends Model
 {
-    use HasFactory, SoftDeletes, Sortable;
+    use HasFactory, SoftDeletes, Sortable, Prunable;
 
     /**
      * The attributes that are mass assignable.
@@ -78,6 +79,18 @@ class Album extends Model
     public function getCoverPath(): string
     {
         return $this->getDirectory().'/cover.jpg';
+    }
+
+    /**
+     * Get the prunable model query.
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function prunable()
+    {
+        return static::query()
+                    ->whereNotNull('deleted_at')
+                    ->where('deleted_at', '<', now()->subDay((int)config('app.expire_day')));       
     }
 
     /**

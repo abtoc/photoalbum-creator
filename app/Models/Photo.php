@@ -3,13 +3,15 @@
 namespace App\Models;
 
 use App\Events\PhotoDeleted;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Prunable;
 
 class Photo extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, Prunable;
 
     /**
      * The attributes that are mass assignable.
@@ -76,5 +78,17 @@ class Photo extends Model
             $this->getDirectory(),
             $this->id, $size
         );
+    }
+
+    /**
+     * Get the prunable model query.
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function prunable()
+    {
+        return static::query()
+                    ->whereNotNull('deleted_at')
+                    ->where('deleted_at', '<', now()->subDay((int)config('app.expire_day')));       
     }
 }

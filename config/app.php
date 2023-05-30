@@ -60,6 +60,8 @@ return [
 
     'version' => env('APP_VERSION'),
 
+    'expire_day' => env('APP_EXPIRE_DAY', 30),
+
     /*
     |--------------------------------------------------------------------------
     | Application Timezone

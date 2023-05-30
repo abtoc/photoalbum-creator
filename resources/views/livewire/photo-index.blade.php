@@ -31,6 +31,13 @@
                     <input type="checkbox" class="form-check-input" id="trashed" wire:model="trashed">
                     <label class="form-check-label" for="trashed">{{ __('Trashed') }}</label>
                 </div>
+                @if($trashed)
+                    <div class="col-auto">
+                        <div class="alert alert-warning my-0 py-0">
+                            {{ sprintf(__('Items in the trash will be removed after %d days.'), (int)config('app.expire_days')) }}
+                        </div>
+                    </div>
+                @endif 
             </div>
         </div>
         <div>

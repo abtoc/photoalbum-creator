@@ -12,7 +12,7 @@ class PhotoIndex extends Component
     public $favorite = false;
     public $uploaded_at = "";
     public $published = false;
-    public $not_albumed = false;
+    public $not_albumed = true;
     public $trashed = false;
     public $category = "";
 
