@@ -105,5 +105,10 @@
     "Changed to monthly plan.": "月額プランに変更しました。",
     "Changed to annual plan.": "年額プランに変更しました。",
     "Subscription canceled.": "サブスクリプションをキャンセルしました。",
-    "Subscriptions have resumed.": "サブスクリプションを再開しました。"
+    "Subscriptions have resumed.": "サブスクリプションを再開しました。",
+    "Can I cancel my subscription?": "サブスクリプションをキャンセルしてもいいですか？",
+    "Can I put my subscription back in?": "サブスクリプションを戻してもいいですか？",
+    "Can I change my plan?": "プランを変更してもいいですか？",
+    "May I move %s to the trash?": "'%s'をゴミ箱に移動してもいいですか？",
+    "Can I delete %s?":"'%s'を削除してもいいですか？"
 }

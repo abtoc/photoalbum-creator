@@ -52,7 +52,7 @@
                                     <span class="align-middle">
                                         <strong>{{ __('Already cancelled.') }}</strong>({{ __('End') }}:{{ $status->details->end_date }})
                                     </span>
-                                    <a href="{{ route('payments.resume') }}" class="btn btn-outline-primary btn-sm" onclick="event.preventDefault(); document.getElementById('payment-resume').submit()">
+                                    <a href="{{ route('payments.resume') }}" class="btn btn-outline-primary btn-sm" data-confirm="{{ __('Can I put my subscription back in?') }}" data-confirm-for="#payment-resume" onclick="clickConfirm(this, event)">
                                         {{ __('Resume') }}
                                     </a>
                                     <form action="{{ route('payments.resume') }}" id="payment-resume" class="d-none" method="POST">
@@ -67,7 +67,7 @@
                                     <span class="align-middle">
                                         <strong>{{ __('Currently charging.') }}</strong>
                                     </span>
-                                    <a href="{{ route('payments.cancel') }}" class="btn btn-outline-dark btn-sm" onclick="event.preventDefault(); document.getElementById('payment-cancel').submit()">
+                                    <a href="{{ route('payments.cancel') }}" class="btn btn-outline-dark btn-sm" data-confirm="{{ __('Can I cancel my subscription?') }}" data-confirm-for="#payment-cancel" onclick="clickConfirm(this, event)">
                                         {{ __('Cancel') }}
                                     </a>
                                     <form action="{{ route('payments.cancel') }}" id="payment-cancel" class="d-none" method="POST">
@@ -81,7 +81,7 @@
                                     <span class="align-middle">
                                         @if($status->details->plan === config('payment.plans.month'))
                                             <strong>{{ __('Monthly plan (580 yen/Month)') }}</strong>
-                                            <a href="" class="btn btn-outline-primary btn-sm" onclick="event.preventDefault(); document.getElementById('payment-change').submit()">
+                                            <a href="" class="btn btn-outline-primary btn-sm" data-confirm="{{ __('Can I change my plan?')}}" data-confirm-for="#payment-change" onclick="clickConfirm(this, event)">
                                                 {{ __('Switch to an annual plan') }}
                                             </a>
                                             <form action="{{ route('payments.change') }}" id="payment-change" method="POST">
@@ -90,7 +90,7 @@
                                             </form>
                                         @else
                                             <strong>{{__('Annual plan (5,800 yen/Year)') }}</strong>
-                                            <a href="" class="btn btn-outline-primary btn-sm" onclick="event.preventDefault(); document.getElementById('payment-change').submit()">
+                                            <a href="" class="btn btn-outline-primary btn-sm" data-confirm="{{ __('Can I change my plan?')}}" data-confirm-for="#payment-change" onclick="clickConfirm(this, event)">
                                                 {{ __('Switch to a monthly plan') }}
                                             </a>
                                             <form action="{{ route('payments.change') }}" id="payment-change" method="POST">

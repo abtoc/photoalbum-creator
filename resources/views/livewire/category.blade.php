@@ -33,7 +33,7 @@
                                     <td>{{ $category->name }} ({{ $category->photos()->count() }})</td>
                                     <td class="text-end">
                                         <a href="#" class="link-dark text-decoretion-none" wire:click="edit({{ $category->id }})"><i class="bi bi-pencil"></i></a>
-                                        <a href="#" class="link-dark text-decoretion-none" wire:click="destroy({{ $category->id }})"><i class="bi bi-trash"></i></a>
+                                        <a href="#" class="link-dark text-decoretion-none" wire:click="destroy({{ $category->id }})" data-confirm="{{ sprintf(__('Can I delete %s?'), $category->name) }}" onclick="wireClickConfirm(this, event)"><i class="bi bi-trash"></i></a>
                                     </td>
                                 </tr>
                             @endforeach

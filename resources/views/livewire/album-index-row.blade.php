@@ -27,7 +27,7 @@
             <a href="{{ route_query('albums.edit', ['album' => $album]) }}" class="link-dark text-decoration-none">
                 <i class="bi bi-pencil"></i>
             </a>
-            <a href="{{ route_query('albums.destroy', ['album' => $album]) }}" class="link-dark text-decoration-none" onclick="event.preventDefault(); document.getElementById('albums-destroy-{{$album->id}}').submit()">
+            <a href="{{ route_query('albums.destroy', ['album' => $album]) }}" class="link-dark text-decoration-none" data-confirm="{{ sprintf(__('May I move %s to the trash?'), $album->title) }}" data-confirm-for="#albums-destroy-{{$album->id}}" onclick="clickConfirm(this, event)">
                 <i class="bi bi-trash"></i>
             </a>
             <form id="albums-destroy-{{$album->id}}" method="POST" class="d-none" action="{{ route_query('albums.destroy', ['album' => $album]) }}">
@@ -42,7 +42,7 @@
                 @csrf
                 @method('PUT');
             </form>
-            <a href="{{ route_query('albums.force', ['album' => $album]) }}" class="link-dark text-decoration-none" onclick="event.preventDefault(); document.getElementById('albums-force-{{$album->id}}').submit()">
+            <a href="{{ route_query('albums.force', ['album' => $album]) }}" class="link-dark text-decoration-none" data-confirm="{{ sprintf(__('Can I delete %s?'), $album->title) }}" data-confirm-for="#albums-force-{{ $album->id }}" onclick="clickConfirm(this, event)">
                 <i class="bi bi-x-lg"></i>
             </a>
             <form id="albums-force-{{$album->id}}" method="POST" class="d-none" action="{{ route_query('albums.force', ['album' => $album]) }}">

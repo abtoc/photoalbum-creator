@@ -3345,6 +3345,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _toast__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./toast */ "./resources/js/toast.js");
 /* harmony import */ var _toast__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_toast__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _category_select__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./category_select */ "./resources/js/category_select.js");
+/* harmony import */ var _confirm__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./confirm */ "./resources/js/confirm.js");
+
 
 
 
@@ -3433,6 +3435,40 @@ var selectCategory = function selectCategory(id) {
 };
 window.selectCategoryNew = selectCategoryNew;
 window.selectCategory = selectCategory;
+
+/***/ }),
+
+/***/ "./resources/js/confirm.js":
+/*!*********************************!*\
+  !*** ./resources/js/confirm.js ***!
+  \*********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "clickConfirm": () => (/* binding */ clickConfirm),
+/* harmony export */   "wireClickConfirm": () => (/* binding */ wireClickConfirm)
+/* harmony export */ });
+var clickConfirm = function clickConfirm(that, event) {
+  event.preventDefault();
+  if (!window.confirm(that.getAttribute('data-confirm'))) {
+    return false;
+  }
+  var form = document.querySelector(that.getAttribute('data-confirm-for'));
+  if (form) {
+    form.submit();
+  }
+  return false;
+};
+var wireClickConfirm = function wireClickConfirm(that, event) {
+  if (!window.confirm(that.getAttribute('data-confirm'))) {
+    return event.stopImmediatePropagation();
+  }
+  return true;
+};
+window.clickConfirm = clickConfirm;
+window.wireClickConfirm = wireClickConfirm;
 
 /***/ }),
 
