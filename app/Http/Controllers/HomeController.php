@@ -32,6 +32,7 @@ class HomeController extends Controller
                     ->limit(10)
                     ->get();
         $overview = (object)[
+            'subcribed' => Auth::user()->subscribed('default'),
             'photo_count' => Auth::user()->photos()->count(),
             'album_count' => Auth::user()->albums()->count(),
             'capacity' => Auth::user()->getCapacity(),

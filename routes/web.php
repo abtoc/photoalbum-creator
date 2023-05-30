@@ -66,6 +66,13 @@ Route::middleware(['verified'])->group(function(){
     Route::put('/options', [App\Http\Controllers\OptionController::class, 'update'])->name('options.update');
 
     Route::get('/news/{news}', [App\Http\Controllers\Admin\NewsController::class, 'show'])->name('news.view');
+
+    Route::get('/payment', [App\Http\Controllers\PaymentController::class, 'index'])->name('payments.index');
+    Route::post('/payment', [App\Http\Controllers\PaymentController::class, 'store'])->name('payments.store');
+    Route::post('/payment/update', [App\Http\Controllers\PaymentController::class, 'update'])->name('payments.update');
+    Route::post('/payment/change', [App\Http\Controllers\PaymentController::class, 'change'])->name('payments.change');
+    Route::post('/payment/cancel', [App\Http\Controllers\PaymentController::class, 'cancel'])->name('payments.cancel');
+    Route::post('/payment/resume', [App\Http\Controllers\PaymentController::class, 'resume'])->name('payments.resume');
 });
 
 Route::get('/admin/login', [App\Http\Controllers\Admin\Auth\LoginController::class, 'showLoginForm']);

@@ -92,7 +92,7 @@
             </main>
         </div>
     </div>
-    @stack('stripe')
+    @stack('stripe-script')
     @livewireScripts
     <script src="{{ mix('js/app.js') }}"></script>
     @stack('scripts')

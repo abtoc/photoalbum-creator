@@ -26,6 +26,11 @@
 
                 <div class="card-body">
                     <ul>
+                        <li>
+                            <a href="{{ route('payments.index') }}">
+                                @if($overview->subcribed){{ __('Subscription contract in progress.') }}@else{{ __('Free plan.') }}@endif
+                            </a>
+                        </li>
                         <li>{{ sprintf(__('%d photos.'), $overview->photo_count) }}</li>
                         <li>{{ sprintf(__('%d albums.'), $overview->album_count) }}</li>
                         <li>{{ sprintf(__('%s out of %s use.'), byte_to_unit($overview->capacity), byte_to_unit($overview->used_capacity)) }}</li>
