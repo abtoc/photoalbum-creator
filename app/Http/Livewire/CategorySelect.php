@@ -102,6 +102,7 @@ class CategorySelect extends Component
         if(Redis::exists($upload)){
             Redis::del($upload);
         }
+        $this->resetErrorBag();
         $this->emit('modalCloseed');
     }
 

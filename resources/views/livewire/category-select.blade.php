@@ -7,7 +7,7 @@
             </div>
             <div class="modal-body">
                 <div class="input-group">
-                    <input type="text" class="form-control" wire:model="name" placeholder="{{ __('Please enter the category you wish to add...') }}">
+                    <input type="text" class="form-control @error('name') is-invalid @enderror" wire:model="name" placeholder="{{ __('Please enter the category you wish to add...') }}">
                     <button class="btn btn-outline-secondary" wire:click="add">{{ __('Add' )}}</button>
                 </div>
                 <div class="pb-2">

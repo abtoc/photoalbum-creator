@@ -46,6 +46,7 @@ class Category extends Component
         });
         $this->category_id = null;
         $this->name = null;
+        $this->resetErrorBag();
     }
 
     public function edit($id)
@@ -65,12 +66,14 @@ class Category extends Component
         });
         $this->category_id = null;
         $this->name = null;
+        $this->resetErrorBag();
     }
 
     public function cancel()
     {
         $this->category_id = null;
         $this->name = null;
+        $this->resetErrorBag();
     }
 
     public function destroy($id)
