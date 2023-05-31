@@ -5,7 +5,7 @@
                 <div class="card-header">{{ __('Category') }}</div>
                 <div class="card-body">
                     <div class="input-group">
-                        <input type="text" class="form-control" wire:model="name" placeholder="{{ __('Please enter the category you wish to add...') }}">
+                        <input type="text" class="form-control @error('name') is-invalid @enderror" wire:model="name" placeholder="{{ __('Please enter the category you wish to add...') }}">
                         @if(is_null($category_id))
                             <button class="btn btn-outline-secondary" wire:click="add">{{ __('Add' )}}</button>
                         @else

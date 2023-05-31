@@ -15,13 +15,13 @@ class UserName extends Component
     ];
 
     protected $rules = [
-        'name' => ['requred']
+        'name' => ['required', 'string', 'max:255'],
     ];
 
     protected function validationAttributes()
     {
         return [
-            'name' => __('name'),
+            'name' => __('Name'),
         ];
     }
 
@@ -33,6 +33,8 @@ class UserName extends Component
 
     public function submit()
     {
+        $this->validate();
+        
         $user = $this->guard ? Auth::guard($this->guard)->user() : Auth::user();
         $user->name = $this->name;
         $user->save();
@@ -42,6 +44,9 @@ class UserName extends Component
 
     public function close()
     {
+        $user = $this->guard ? Auth::guard($this->guard)->user() : Auth::user();
+        $this->name = $user->name; 
+        $this->resetErrorBag();
         $this->emit('modalClosed');
     }
 

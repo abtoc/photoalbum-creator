@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use function Illuminate\Events\queueable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Cashier\Billable;
@@ -73,4 +74,18 @@ class User extends Authenticatable implements MustVerifyEmail
     public function albums()  { return $this->hasMany(Album::class); }
     public function categories() { return $this->hasMany(Category::class); }
     public function options()   { return $this->hasMany(Option::class); }
+
+    /**
+     * Perform any actions required after the model boots.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::updated(queueable(function($customer){
+            if($customer->hasStripeId()){
+                $customer->syncStripeCustomerDetails();
+            }
+        }));
+    }
 }
