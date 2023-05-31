@@ -7,6 +7,7 @@ use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Password;
 
@@ -43,6 +44,17 @@ class RegisterController extends Controller
     }
 
     /**
+     * Show the application registration form.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function showRegistrationForm()
+    {
+        $tos = Storage::disk('local')->get('tos.md');
+        return view('auth.register', ['tos' => $tos]);
+    }
+
+    /**
      * Get a validator for an incoming registration request.
      *
      * @param  array  $data
@@ -54,6 +66,7 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', Password::defaults(), 'confirmed'],
+            'tos' => ['accepted'],
         ]);
     }
 

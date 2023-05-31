@@ -74,18 +74,20 @@
         </nav>
 
         <div id="content" class="container-fluid px-0">
-            <nav id="sidebar" class="bg-light d-flex flex-column justify-content-between">
-                <ul class="navbar-nav">
-                    <li class="nav-item"><a href="{{ route('home') }}" class="nav-link">{{ __('Home') }}</a></li>
-                    <li class="nav-item"><a href="{{ route('photos.index') }}" class="nav-link">{{ __('Photo Library') }}</a></li>
-                    <li class="nav-item"><a href="{{ route('category.index') }}" class="nav-link">{{ __('Category') }}</a></li>
-                    <li class="nav-item"><a href="{{ route('albums.index') }}" class="nav-link">{{ __('Album') }}</a></li>
-                    <li class="nav-item"><a href="{{ route('options.index') }}" class="nav-link">{{ __('Setting') }}</a></li>
-                </ul>
-                @auth
-                    @livewire('capacity')
-                @endauth
-            </nav>
+            @unless(in_array(request()->route()->getName(),['login', 'register']))
+                <nav id="sidebar" class="bg-light d-flex flex-column justify-content-between">
+                    <ul class="navbar-nav">
+                        <li class="nav-item"><a href="{{ route('home') }}" class="nav-link">{{ __('Home') }}</a></li>
+                        <li class="nav-item"><a href="{{ route('photos.index') }}" class="nav-link">{{ __('Photo Library') }}</a></li>
+                        <li class="nav-item"><a href="{{ route('category.index') }}" class="nav-link">{{ __('Category') }}</a></li>
+                        <li class="nav-item"><a href="{{ route('albums.index') }}" class="nav-link">{{ __('Album') }}</a></li>
+                        <li class="nav-item"><a href="{{ route('options.index') }}" class="nav-link">{{ __('Setting') }}</a></li>
+                    </ul>
+                    @auth
+                        @livewire('capacity')
+                    @endauth
+                </nav>
+            @endunless
             <main>
                 <x-alert></x-alert>
                 @yield('content')

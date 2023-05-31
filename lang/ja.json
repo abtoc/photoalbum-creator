@@ -111,5 +111,7 @@
     "Can I change my plan?": "プランを変更してもいいですか？",
     "May I move %s to the trash?": "'%s'をゴミ箱に移動してもいいですか？",
     "Can I delete %s?":"'%s'を削除してもいいですか？",
-    "Items in the trash will be removed after %d days.": "ゴミ箱のアイテムは%d日後に削除されます。"
+    "Items in the trash will be removed after %d days.": "ゴミ箱のアイテムは%d日後に削除されます。",
+    "Terms of service": "利用規約",
+    "I agree to the Terms of Service": "利用規約に同意する"
 }

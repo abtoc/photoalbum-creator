@@ -74,12 +74,14 @@
         </nav>
 
         <div id="content" class="container-fluid px-0">
-            <nav id="sidebar" class="navbar-dark bg-secondary d-flex flex-column justify-content-between">
-                <ul class="navbar-nav">
-                    <li class="nav-item"><a href="{{ route('admin.home') }}" class="nav-link">{{ __('Home') }}</a></li>
-                    <li class="nav-item"><a href="{{ route('admin.news.index') }}" class="nav-link">{{ __('Notice') }}</a></li>
-                </ul>
-            </nav>
+            @unless(in_array(request()->route()->getName(),['admin.login']))
+                <nav id="sidebar" class="navbar-dark bg-secondary d-flex flex-column justify-content-between">
+                    <ul class="navbar-nav">
+                        <li class="nav-item"><a href="{{ route('admin.home') }}" class="nav-link">{{ __('Home') }}</a></li>
+                        <li class="nav-item"><a href="{{ route('admin.news.index') }}" class="nav-link">{{ __('Notice') }}</a></li>
+                    </ul>
+                </nav>
+            @endunless
             <main>
                 <x-alert></x-alert>
                 @yield('content')

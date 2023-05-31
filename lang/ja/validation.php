@@ -160,6 +160,8 @@ return [
     */
 
     'attributes' => [
+        'password' => 'パスワード',
+        'tos' => '利用規約',
         'lines_per_page' => '件数',
         'expire' => '日数',
     ],

@@ -75,8 +75,8 @@ Route::middleware(['verified'])->group(function(){
     Route::post('/payment/resume', [App\Http\Controllers\PaymentController::class, 'resume'])->name('payments.resume');
 });
 
-Route::get('/admin/login', [App\Http\Controllers\Admin\Auth\LoginController::class, 'showLoginForm']);
-Route::post('/admin/login', [App\Http\Controllers\Admin\Auth\LoginController::class, 'login'])->name('admin.login');
+Route::get('/admin/login', [App\Http\Controllers\Admin\Auth\LoginController::class, 'showLoginForm'])->name('admin.login');
+Route::post('/admin/login', [App\Http\Controllers\Admin\Auth\LoginController::class, 'login']);
 Route::post('/admin/logout', [App\Http\Controllers\Admin\Auth\LoginController::class, 'logout'])->name('admin.logout');
 Route::get('/admin/password/reset', [App\Http\Controllers\Admin\Auth\ForgotPasswodController::class, 'showLinkRequestForm'])->name('admin.password.request');
 Route::post('/admin/password/email', [App\Http\Controllers\Admin\Auth\ForgotPasswodController::class, 'sendResetLinkEmail'])->name('admin.password.email');

@@ -61,6 +61,26 @@
                             </div>
                         </div>
 
+                        <div class="row mb-3">
+                            <label for="tos" class="col-md-4 col-form-label text-md-end">{{ __('Terms of service') }}</label>
+                            <div class="col-md-8">
+                                <div class="markdown-body form-control mb-3" style="height:300px; overflow-y: auto; font-size: 80%">
+                                    {{ markdown($tos) }}
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" id="tos" name="tos" class="form-check-input @error('tos') is-invalid @enderror">
+                                    <label for="tos" class="form-check-label">
+                                        {{ __('I agree to the Terms of Service') }}
+                                    </label>
+                                </div>
+                                @error('tos')
+                                    <span class="invalid-feedback d-inline" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
