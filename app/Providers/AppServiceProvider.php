@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Subscription;
+use App\Models\SubscriptionItem;
 use Laravel\Cashier\Cashier;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Blade;
@@ -50,5 +52,8 @@ class AppServiceProvider extends ServiceProvider
             }
             return $password;
         });
+
+        Cashier::useSubscriptionModel(Subscription::class);
+        Cashier::useSubscriptionItemModel(SubscriptionItem::class);
     }
 }

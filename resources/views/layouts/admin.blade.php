@@ -56,7 +56,7 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                    <a class="dropdown-item" href="{{ route('admin.logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
@@ -69,13 +69,13 @@
                             </li>
                         @endguest
                     </ul>
-                </div>
+                </div> __('Activity') 
             </div>
         </nav>
 
         <div id="content" class="container-fluid px-0">
             @unless(in_array(request()->route()->getName(),['admin.login']))
-                <nav id="sidebar" class="navbar-dark bg-secondary d-flex flex-column justify-content-between">
+                <nav id="sidebar" class="navbar-dark bg-secondary d-flex flex-column __('Activity')  justify-content-between">
                     <ul class="navbar-nav">
                         <li class="nav-item"><a href="{{ route('admin.home') }}" class="nav-link">{{ __('Home') }}</a></li>
                         <li class="nav-item"><a href="{{ route('admin.news.index') }}" class="nav-link">{{ __('Notice') }}</a></li>

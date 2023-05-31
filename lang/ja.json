@@ -75,6 +75,8 @@
     "%d photos.":"%d件の写真",
     "%d albums.":"%d件のアルバム",
     "%s out of %s use.": "%s 中 %s を使用",
+    "%d users.": "%d人のユーザー",
+    "%d subscriptions.": "%d件契約中",
     "Message": "メッセージ",
     "Draft": "草稿",
     "Publish": "公開",
