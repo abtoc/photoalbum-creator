@@ -56,6 +56,9 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="#" onclick="userNameChange()">
+                                        {{ __('Name change') }}
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('admin.logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -67,6 +70,7 @@
                                     </form>
                                 </div>
                             </li>
+                            @livewire('user-name', ['guard' => 'admin'])
                         @endguest
                     </ul>
                 </div> __('Activity') 

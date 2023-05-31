@@ -115,5 +115,8 @@
     "Can I delete %s?":"'%s'を削除してもいいですか？",
     "Items in the trash will be removed after %d days.": "ゴミ箱のアイテムは%d日後に削除されます。",
     "Terms of service": "利用規約",
-    "I agree to the Terms of Service": "利用規約に同意する"
+    "I agree to the Terms of Service": "利用規約に同意する",
+    "Name change": "名前の変更",
+    "User name change": "ユーザ名の変更",
+    "Enter your name...": "名前を入力..."
 }

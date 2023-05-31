@@ -3345,7 +3345,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _toast__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./toast */ "./resources/js/toast.js");
 /* harmony import */ var _toast__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_toast__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _category_select__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./category_select */ "./resources/js/category_select.js");
-/* harmony import */ var _confirm__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./confirm */ "./resources/js/confirm.js");
+/* harmony import */ var _user_name__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./user-name */ "./resources/js/user-name.js");
+/* harmony import */ var _confirm__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./confirm */ "./resources/js/confirm.js");
+
 
 
 
@@ -3629,6 +3631,32 @@ if (document.getElementById("uppy-select-files") != null) {
     console.log('finally');
   });
 }
+
+/***/ }),
+
+/***/ "./resources/js/user-name.js":
+/*!***********************************!*\
+  !*** ./resources/js/user-name.js ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "userNameChange": () => (/* binding */ userNameChange)
+/* harmony export */ });
+/* harmony import */ var bootstrap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap.esm.js");
+
+var userNameChange = function userNameChange() {
+  var element = document.getElementById('user-name-change');
+  var modal = new bootstrap__WEBPACK_IMPORTED_MODULE_0__.Modal(element);
+  Livewire.on('modalClosed', function () {
+    modal.hide();
+  });
+  modal.show();
+  Livewire.emit('modalOpen');
+};
+window.userNameChange = userNameChange;
 
 /***/ }),
 
