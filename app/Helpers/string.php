@@ -32,6 +32,15 @@ if(!function_exists('remove_markdown')) {
     {
         $patterns = [
             '/^#+([^#].*)?$/' => '$1',
+            '/^=+\r\n/' => '',
+            '/^\-+\r\n/' => '',
+            '/>(.*)$/' => '$1',
+            '/\[(.*)\]\(.*\)/' => '$1',
+            '/\*(.*)\*/' => '$1',
+            '/_(.*)_/' => '$1',
+            '/\*\*(.*)\*\*/' => '$1',
+            '/__(.*)__/' => '$1',
+
         ];
         foreach($patterns as $pattern => $replace){
             $string = preg_replace($pattern.'m', $replace, $string);
