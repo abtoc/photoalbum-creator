@@ -93,4 +93,7 @@ Route::middleware(['auth:admin'])->group(function(){
     Route::put('/admin/news/{news}', [App\Http\Controllers\Admin\NewsController::class, 'update'])->name('admin.news.update');
     Route::get('/admin/news/{news}', [App\Http\Controllers\Admin\NewsController::class, 'show'])->name('admin.news.view');
     Route::delete('/admin/news/{news}', [App\Http\Controllers\Admin\NewsController::class, 'destroy'])->name('admin.news.destroy');
+    Route::get('/admin/phpinfo', function(){
+        return phpinfo();
+    })->name('admin.phpinfo');
 });
