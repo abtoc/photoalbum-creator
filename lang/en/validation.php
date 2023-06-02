@@ -179,6 +179,9 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'lines_per_page' => 'number of events',
+        'expire' => 'number of days',
+    ],
 
 ];
