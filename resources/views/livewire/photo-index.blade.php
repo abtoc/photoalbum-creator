@@ -34,7 +34,7 @@
                 @if($trashed)
                     <div class="col-auto">
                         <div class="alert alert-warning my-0 py-0">
-                            {{ sprintf(__('Items in the trash will be removed after %d days.'), (int)config('app.expire_days')) }}
+                            {{ sprintf(__('Items in the trash will be removed after %d days.'), (int)config('app.expire_day')) }}
                         </div>
                     </div>
                 @endif 
