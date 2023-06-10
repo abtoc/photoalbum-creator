@@ -38,9 +38,14 @@ class HomeController extends Controller
             'capacity' => Auth::user()->getCapacity(),
             'used_capacity' => Auth::user()->getUsedCapacity(),
         ];
+        $activites = Auth::user()->activites()
+                    ->orderBy('created_at', 'desc')
+                    ->limit(5)
+                    ->get();
         return view('home', [
             'news_list' => $news_list,
             'overview' => $overview,
+            'activites' => $activites,
         ]);
     }
 }

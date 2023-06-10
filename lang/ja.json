@@ -118,5 +118,12 @@
     "I agree to the Terms of Service": "利用規約に同意する",
     "Name change": "名前の変更",
     "User name change": "ユーザ名の変更",
-    "Enter your name...": "名前を入力..."
+    "Enter your name...": "名前を入力...",
+    "User %s is registerd.":"ユーザ「%s」が登録されました。",
+    "User %s is subcribed.":"ユーザ「%s」がサブスクリプションを契約しました。",
+    "User %s is unsubcribed.":"ユーザ「%s」がサブスクリプションを解約しました。",
+    "Subcribed.": "サブスクリプションを契約しました。",
+    "Unsubcribed.": "サブスクリプションを解約しました。",
+    "Created %s.":"「%s」を作成しました。",
+    "No activites.": "アクティビティはありません。"
 }

@@ -74,6 +74,7 @@ class User extends Authenticatable implements MustVerifyEmail
     public function albums()  { return $this->hasMany(Album::class); }
     public function categories() { return $this->hasMany(Category::class); }
     public function options()   { return $this->hasMany(Option::class); }
+    public function activites() { return $this->hasMany(Activity::class); }
 
     /**
      * Perform any actions required after the model boots.
