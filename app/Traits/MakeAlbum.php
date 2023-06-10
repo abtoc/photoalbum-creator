@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use App\Models\Activity;
 use App\Models\Album;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
@@ -108,6 +109,11 @@ trait MakeAlbum
         Storage::disk('local')->delete($current.'.epub');
         Log::info('Delete epub working file.', ['album_id' => $album->id, 'path' => $current.'.epub']);
 
+        Activity::create([
+            'user_id' => $album->user->id,
+            'details' => sprintf(__('Created %s.'), $album->title),
+        ]);
+  
         Log::info('Maked album terminate.', ['album_id' => $album->id, 'email' => $album->user->email]);
         return 0;
     }

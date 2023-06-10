@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Enums\Payment\Status;
+use App\Events\Subscribed;
+use App\Events\Unsubscribed;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Prologue\Alerts\Facades\Alert;
@@ -57,6 +59,8 @@ class PaymentController extends Controller
             $user->newSubscription('default', $plan)->create($method);
         }
 
+        event(new Subscribed($user));
+
         Alert::info(__('Subscription signed up.'));
         Alert::flash();
 
@@ -101,6 +105,8 @@ class PaymentController extends Controller
 
         $user->subscription('default')->cancel();
 
+        event(new Unsubscribed($user));
+
         Alert::info(__('Subscription canceled.'));
         Alert::flash();
 
@@ -112,6 +118,8 @@ class PaymentController extends Controller
         $user = Auth::user();
 
         $user->subscription('default')->resume();
+
+        event(new Subscribed($user));
 
         Alert::info(__('Subscriptions have resumed.'));
         Alert::flash();

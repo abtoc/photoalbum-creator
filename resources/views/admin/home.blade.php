@@ -21,7 +21,12 @@
                     <div class="card-header">{{ __('Activity')  }}</div>
 
                     <div class="card-body">
-
+                        @forelse($activites as $activity)
+                            <dt class="float-start">{{ $activity->created_at->toDateTimeString() }}</dt>
+                            <dd style="margin-left: 160px;">{{ $activity->details }}</dd>
+                        @empty
+                            {{ __('No activites.') }}
+                        @endforelse
                     </div>
                 </div>
             </div>
