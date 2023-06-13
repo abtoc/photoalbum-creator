@@ -5,6 +5,8 @@ namespace App\Console\Commands;
 use App\Models\Admin;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rules\Password;
 
 class AdminPassword extends Command
 {
@@ -31,29 +33,34 @@ class AdminPassword extends Command
     {
         $email = $this->argument('email');
 
-        system('stty -echo');
-        fwrite(STDERR, 'Passwrod: ');
-        $password = rtrim(fgets(STDIN));
-        fwrite(STDERR, PHP_EOL.'Confirmed password: ');
-        $confirmed = rtrim(fgets(STDIN));
-        fwrite(STDERR, PHP_EOL);
-        system('stty echo');
+        $password = $this->secret('Password');
+        $confirmed = $this->secret('Confirmed password');
 
-        if($password != $confirmed){
-            fwrite(STDERR, 'Password does not match.'.PHP_EOL);
+        $validator = Validator::make([
+            'email' => $email,
+            'password' => $password,
+            'password_confirmation' => $confirmed,
+        ], [
+            'email' => ['required', 'string', 'email', 'max:255', 'exists:admins,email'],
+            'password' => ['required', 'string', Password::defaults(), 'confirmed'],
+        ]);
+
+        if($validator->fails()){
+            $this->info('Admin User not password changed. See error messages below.');
+            foreach($validator->errors()->all() as $error){
+                $this->error($error);
+            }
             return 1;
         }
 
-        $query = Admin::query()
-                    ->where('email', $email);
-        if($query->exists()){
-            $admin = $query->first();
-            $admin->update([
+
+        Admin::where('email', $email)
+            ->update([
                 'password' => Hash::make($password),
             ]);
+
+            $this->info('Admin Account password changed.');
+
             return Command::SUCCESS;
         }
-        echo "{$email} is not found.";
-        return 1;
-    }
 }

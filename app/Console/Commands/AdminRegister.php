@@ -5,6 +5,8 @@ namespace App\Console\Commands;
 use App\Models\Admin;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rules\Password;
 
 class AdminRegister extends Command
 {
@@ -34,16 +36,25 @@ class AdminRegister extends Command
         $name = $this->argument('name');
         $email = $this->argument('email');
 
-        system('stty -echo');
-        fwrite(STDERR, 'Passwrod: ');
-        $password = rtrim(fgets(STDIN));
-        fwrite(STDERR, PHP_EOL.'Confirmed password: ');
-        $confirmed = rtrim(fgets(STDIN));
-        fwrite(STDERR, PHP_EOL);
-        system('stty echo');
+        $password = $this->secret('Password');
+        $confirmed = $this->secret('Confirmed password');
 
-        if($password != $confirmed){
-            fwrite(STDERR, 'Password does not match.'.PHP_EOL);
+        $validator = Validator::make([
+            'name' => $name,
+            'email' => $email,
+            'password' => $password,
+            'password_confirmation' => $confirmed,
+        ], [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:admins'],
+            'password' => ['required', 'string', Password::defaults(), 'confirmed'],
+        ]);
+
+        if($validator->fails()){
+            $this->info('Admin User not created. See error messages below.');
+            foreach($validator->errors()->all() as $error){
+                $this->error($error);
+            }
             return 1;
         }
 
@@ -52,6 +63,8 @@ class AdminRegister extends Command
             'email' => $email,
             'password' => Hash::make($password),
         ]);
+
+        $this->info('Admin Account created.');
 
         return Command::SUCCESS;
     }
