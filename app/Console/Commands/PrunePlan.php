@@ -2,10 +2,10 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Album;
+use App\Models\Activity;
 use App\Models\User;
-use App\Models\Photos;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 
 class PrunePlan extends Command
 {
@@ -43,7 +43,13 @@ class PrunePlan extends Command
                 ->where('deleted_at', '<', now()->subDay((int)config('app.expire_day')))
                 ->first();
             $capacity = $album->capacity + $photo->capacity;
-            echo $user->email.' '.byte_to_unit($capacity).PHP_EOL;
+            if($capacity > 0){
+                Log::info('Delete data.', ['email' => $user->email, 'capacity' => byte_to_unit($capacity)]);
+                Activity::create([
+                    'user_id' => $user->id,
+                    'details' => sprintf(__('Deleted for %s.'), byte_to_unit($capacity)),
+                ]);
+            }
         }
         return Command::SUCCESS;
     }

@@ -125,5 +125,6 @@
     "Subcribed.": "サブスクリプションを契約しました。",
     "Unsubcribed.": "サブスクリプションを解約しました。",
     "Created %s.":"「%s」を作成しました。",
-    "No activites.": "アクティビティはありません。"
+    "No activites.": "アクティビティはありません。",
+    "Deleted for %s.": "%s分を削除しました。"
 }
