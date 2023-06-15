@@ -15,6 +15,7 @@ sudo -u www-data php artisan config:cache
 sudo -u www-data php artisan route:cache
 sudo -u www-data php artisan view:cache
 sudo -u www-data php artisan admin:register <name> <email>
+sudo -u www-data npm ci
 ```
 
 ## Update
@@ -28,6 +29,7 @@ sudo -u www-data php artisan migrate
 sudo -u www-data php artisan config:cache
 sudo -u www-data php artisan route:cache
 sudo -u www-data php artisan view:cache
+sudo -u www-data npm ci
 sudo -u www-data npm run prod
 sudo systemctl restart pac-queue
 sudo systemctl restart pac-schedule
