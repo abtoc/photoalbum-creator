@@ -83,10 +83,11 @@
 
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary" id="submitButton">
                                     {{ __('Register') }}
                                 </button>
                             </div>
+                            {!! no_captcha()->input() !!}
                         </div>
                     </form>
                 </div>
@@ -95,3 +96,19 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+{!! no_captcha()->script() !!}
+{!! no_captcha()->getApiScript() !!}
+<script>
+    document.querySelector('#submitButton').addEventListener('click', (event) => {
+        event.preventDefault();
+        grecaptcha.ready(function(){
+            grecaptcha.execute('{{config('no-captcha.sitekey')}}', {action: 'login'}).then(function(token) {
+                document.querySelector('#g-recaptcha-response').value = token;
+                document.querySelector('form').submit();
+            });
+        });
+    });
+</script>
+@endpush
